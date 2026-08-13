@@ -9,8 +9,58 @@ datasource db {
 
 
 model User { 
-  id    Int     @id @default(autoincrement()) 
-  email String  @unique
-  name  String?
+  id            String  @id @default(cuid()) 
+  email         String  @unique
+  emailVerified Boolean @default(false)
+  name          String?
+  image         String?
+
+  username    String  @unique
+  description String?
+
+  timezone  String  @default("America/Montreal")
+
+  defaultDurationMinutes  Int @default(30)
+  bufferMinutes           Int @default(0)
+
+  availability  Availability[]
+  bookings      Booking[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 } 
+
+model Availability {
+  id      String  @id @default(cuid())
+  ownerId String
+  owner   User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  dayOfWeek   Int // 0 = Sunday … 6 = Saturday (matches JS getDay())
+  startMinute Int // minutes from local midnight: 18:00 => 1080
+  endMinute   Int // v1: same-day only, start < end
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([ownerId, dayOfWeek])
+}
+
+model Booking {
+  id      String @id @default(cuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  slotStartUtc  DateTime  @db.Timestamptz(3)
+  slotEndUtc    DateTime  @db.Timestamptz(3)
+
+  bookerName  String
+  bookerEmail String
+  note        String
+
+  idempotencyKey  String? @unique //nullable so it works until implementation
+
+  createdAt DateTime @default(now())
+
+  @@unique([ownerId, slotStartUtc])
+}
 

@@ -20,6 +20,7 @@
     "@mantine/hooks": "^9.5.1",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "better-auth": "^1.6.27",
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "next": "16.3.0",

@@ -11,7 +11,8 @@
     "postinstall": "prisma generate",
     "db:dev": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "email:dev": "email dev"
   },
   "dependencies": {
     "@mantine/core": "^9.5.1",
@@ -20,16 +21,20 @@
     "@mantine/hooks": "^9.5.1",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "@react-email/components": "^1.0.12",
     "better-auth": "^1.6.27",
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "next": "16.3.0",
     "pg": "^8.23.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-email": "6.9.2",
+    "resend": "^6.20.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.2",
+    "@react-email/ui": "6.9.2",
     "@types/node": "^20",
     "@types/pg": "^8.21.0",
     "@types/react": "^19",

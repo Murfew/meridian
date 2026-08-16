@@ -5,3 +5,6 @@ export const WED = 3;
 export const THU = 4;
 export const FRI = 5;
 export const SAT = 6;
+
+export const RESET_PASSWORD_TOKEN_DURATION = 60 * 60; // 1 hour
+export const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours

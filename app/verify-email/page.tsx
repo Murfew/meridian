@@ -11,10 +11,18 @@ import {
 } from "@mantine/core";
 import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
 export default function VerifyEmailPage() {
+  return (
+    <Suspense>
+      <VerifyEmailContent />
+    </Suspense>
+  );
+}
+
+function VerifyEmailContent() {
   const email = useSearchParams().get("email") ?? "";
   const [loading, setLoading] = useState<boolean>(false);
   const [cooldown, setCooldown] = useState<number>(0);

@@ -19,6 +19,8 @@
     "@mantine/dates": "^9.5.1",
     "@mantine/form": "^9.5.1",
     "@mantine/hooks": "^9.5.1",
+    "@mantine/notifications": "^9.5.1",
+    "@phosphor-icons/react": "^2.1.10",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "@react-email/components": "^1.0.12",
@@ -30,7 +32,8 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-email": "6.9.2",
-    "resend": "^6.20.0"
+    "resend": "^6.20.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.2",

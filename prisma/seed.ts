@@ -3,7 +3,7 @@ import { PrismaClient } from "../app/generated/prisma/client";
 import "dotenv/config";
 import "@/lib/contsants";
 import { FRI, MON, THU, TUE, WED } from "@/lib/contsants";
-import { minutesSinceMidnight } from "@/lib/util";
+import { minutesSinceMidnight } from "@/lib/utils";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
@@ -15,6 +15,7 @@ type Seed = {
   name: string;
   email: string;
   username: string;
+  displayUsername: string;
   timezone: string;
   description: string;
   defaultDurationMinutes: number;
@@ -26,6 +27,7 @@ const seeds: Seed[] = [
     name: "Alice Tremblay",
     email: "alice@example.com",
     username: "alice",
+    displayUsername: "Alice's Hair Salon",
     timezone: "America/Montreal",
     description: "Product designer. Book a 30-minute intro call.",
     defaultDurationMinutes: 30,
@@ -66,6 +68,7 @@ const seeds: Seed[] = [
     name: "Bob Nakamura",
     email: "bob@example.com",
     username: "bob",
+    displayUsername: "Bob's Barber Shop",
     timezone: "America/Vancouver",
     description: "Engineering mentor. 60-minute sessions.",
     defaultDurationMinutes: 60,

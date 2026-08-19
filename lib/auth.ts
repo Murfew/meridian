@@ -1,5 +1,6 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, string } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { username } from "better-auth/plugins";
 import PasswordResetEmail from "@/emails/password-reset";
 import VerificationEmail from "@/emails/verification";
 import {
@@ -46,6 +47,23 @@ export const auth = betterAuth({
         subject: "Verify your email address",
         react: VerificationEmail({ verificationUrl: url }),
       });
+    },
+  },
+  plugins: [username()],
+  user: {
+    additionalFields: {
+      description: { type: "string", required: false, defaultValue: "" },
+      timezone: {
+        type: "string",
+        required: true,
+        defaultValue: "America/Montreal",
+      },
+      defaultDurationMinutes: {
+        type: "number",
+        required: true,
+        defaultValue: 30,
+      },
+      bufferMinutes: { type: "number", required: true, defaultValue: 0 },
     },
   },
 });

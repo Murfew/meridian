@@ -9,6 +9,7 @@ import {
   ThemeIcon,
   Title,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
@@ -42,7 +43,11 @@ function VerifyEmailContent() {
         },
         onError: (ctx) => {
           setLoading(false);
-          alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
+          notifications.show({
+            color: "red",
+            title: "Error",
+            message: ctx.error.message,
+          });
         },
       },
     );

@@ -13,6 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import { schemaResolver, useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,7 +46,11 @@ export default function SignUpPage() {
           },
           onError: (ctx) => {
             setLoading(false);
-            alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
+            notifications.show({
+              color: "red",
+              title: "Error",
+              message: ctx.error.message,
+            });
           },
         },
       );
@@ -87,7 +92,11 @@ export default function SignUpPage() {
         },
         onError: (ctx) => {
           setLoading(false);
-          alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
+          notifications.show({
+            color: "red",
+            title: "Error",
+            message: ctx.error.message,
+          });
         },
       },
     );

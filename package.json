@@ -19,6 +19,7 @@
     "@mantine/dates": "^9.5.1",
     "@mantine/form": "^9.5.1",
     "@mantine/hooks": "^9.5.1",
+    "@mantine/notifications": "^9.5.1",
     "@phosphor-icons/react": "^2.1.10",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",

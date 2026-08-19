@@ -11,12 +11,44 @@ import {
 } from "@mantine/core";
 import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 export default function VerifyEmailPage() {
   const email = useSearchParams().get("email") ?? "";
+  const [loading, setLoading] = useState<boolean>(false);
+  const [cooldown, setCooldown] = useState<number>(0);
 
-  // TODO: handle resend logic (call auth resend endpoint, add loading/cooldown state, handle errors)
-  const handleResend = () => {};
+  const handleResend = async () => {
+    await authClient.sendVerificationEmail(
+      {
+        email,
+        callbackURL: "/availability",
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          setLoading(false);
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
+        },
+      },
+    );
+    setCooldown(30);
+    const t = setInterval(() => {
+      setCooldown((c) => {
+        if (c <= 1) {
+          clearInterval(t);
+          return 0;
+        }
+        return c - 1;
+      });
+    }, 1000);
+  };
 
   return (
     <Center mih="100vh">
@@ -30,12 +62,17 @@ export default function VerifyEmailPage() {
               Check your email
             </Title>
             <Text c="dimmed" size="sm" ta="center">
-              {/* TODO: interpolate the actual email address once available, e.g. `We've sent a verification link to ${email}.` */}
-              We&apos;ve sent a verification link to your email address.
+              We&apos;ve sent a verification link to {email}.
             </Text>
           </Stack>
-          <Button variant="default" fullWidth onClick={handleResend}>
-            Resend email
+          <Button
+            variant="default"
+            fullWidth
+            onClick={handleResend}
+            loading={loading}
+            disabled={loading || cooldown > 0}
+          >
+            {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend email"}{" "}
           </Button>
         </Stack>
       </Card>

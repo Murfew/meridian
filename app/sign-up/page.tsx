@@ -13,6 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import { schemaResolver, useForm } from "@mantine/form";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod/v4";
@@ -168,7 +169,7 @@ export default function SignUpPage() {
               </Button>
               <Text ta="center" size="sm">
                 Already have an account?{" "}
-                <Anchor href="/sign-in" size="sm">
+                <Anchor href="/sign-in" size="sm" component={Link}>
                   Sign in
                 </Anchor>
               </Text>

@@ -13,12 +13,14 @@ import {
   Title,
 } from "@mantine/core";
 import { schemaResolver, useForm } from "@mantine/form";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod/v4";
 import { authClient } from "@/lib/auth-client";
 
-export default function SignUp() {
+export default function SignUpPage() {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const schema = z
     .object({
@@ -40,8 +42,9 @@ export default function SignUp() {
           onSuccess: () => {
             setLoading(false);
           },
-          onError: () => {
+          onError: (ctx) => {
             setLoading(false);
+            alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
           },
         },
       );
@@ -70,14 +73,20 @@ export default function SignUp() {
 
   const handleSignUp = async () => {
     await authClient.signUp.email(
-      { ...form.getValues() },
+      { ...form.getValues(), callbackURL: "/availability" },
       {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {},
-        onError: () => {
+        onSuccess: () => {
           setLoading(false);
+          router.push(
+            `/verify-email?email=${encodeURIComponent(form.getValues().email)}`,
+          );
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          alert(`Error (${ctx.error.status}): ${ctx.error.message}`);
         },
       },
     );

@@ -25,47 +25,56 @@ export function VerificationEmail({
       <Head />
       <Preview>Verify your email address</Preview>
 
-      <Tailwind>
-        <Body className="bg-white font-sans">
-          <Container className="mx-auto py-12 px-4 max-w-xl">
-            <Text className="text-2xl font-bold text-black">Meridian</Text>
+      <Tailwind
+        config={{
+          theme: { extend: { colors: { brand: "#4c6ef5" } } },
+        }}
+      >
+        <Body className="bg-gray-50 font-sans py-12">
+          <Container className="mx-auto max-w-xl rounded-xl border border-solid border-gray-200 bg-white px-8 py-10">
+            <Text className="m-0 text-lg font-bold tracking-tight text-gray-900">
+              Meridian
+            </Text>
 
-            <Heading className="text-2xl font-bold text-gray-900 mt-8">
+            <Heading className="mt-8 mb-0 text-3xl font-bold text-gray-900">
               Verify your email
             </Heading>
 
-            <Text className="text-base text-gray-700 leading-6">
-              Click the button below to verify your email address and complete
-              your account setup.
+            <Text className="mt-3 text-base leading-6 text-gray-700">
+              Click the button below to verify your email address and
+              complete your account setup.
             </Text>
 
             <Button
               href={verificationUrl}
-              className="bg-black text-white px-6 py-3 rounded-md font-medium mt-4 inline-block box-border"
+              className="mt-6 box-border inline-block rounded-md bg-brand px-6 py-3 font-medium text-white"
             >
-              Verify Email Address
+              Verify email address
             </Button>
 
-            <Text className="text-sm text-gray-500 mt-4">
+            <Text className="mt-4 text-sm text-gray-500">
               This link will expire in {expiresIn}.
             </Text>
 
-            <Hr className="border-gray-200 my-8" />
+            <Hr className="my-8 border-gray-200" />
 
-            <Text className="text-sm text-gray-500">
-              If you didn&apos;t request this verification, you can safely
-              ignore this email.
+            <Text className="mb-1 text-xs text-gray-500">
+              If the button doesn&apos;t work, copy and paste this URL into
+              your browser:
             </Text>
-
-            {/* Fallback link for email clients that don't support buttons */}
-            <Text className="text-xs text-gray-400 mt-4">
-              If the button doesn&apos;t work, copy and paste this URL into your
-              browser:
-            </Text>
-            <Text className="text-xs text-gray-400 break-all">
+            <Text className="mb-6 break-all text-xs text-gray-500">
               {verificationUrl}
             </Text>
+
+            <Text className="m-0 text-sm text-gray-500">
+              If you didn&apos;t create an account, you can safely ignore
+              this email.
+            </Text>
           </Container>
+
+          <Text className="mt-6 text-center text-xs text-gray-500">
+            Meridian
+          </Text>
         </Body>
       </Tailwind>
     </Html>

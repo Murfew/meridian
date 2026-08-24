@@ -1,6 +1,7 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, getOrigin } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { username } from "better-auth/plugins";
+import ExistingAccountEmail from "@/emails/existing-account";
 import PasswordResetEmail from "@/emails/password-reset";
 import VerificationEmail from "@/emails/verification";
 import {
@@ -34,6 +35,21 @@ export const auth = betterAuth({
         to: user.email,
         subject: "Reset your password",
         react: PasswordResetEmail({ resetUrl: url }),
+      });
+    },
+
+    onExistingUserSignUp: async ({ user }, request) => {
+      const origin =
+        (request ? getOrigin(request.url) : null) ??
+        "https://meridianbooking.com";
+
+      void sendEmail({
+        to: user.email,
+        subject: "You already have an account",
+        react: ExistingAccountEmail({
+          signInUrl: `${origin}/sign-in`,
+          resetPasswordUrl: `${origin}/forgot-password`,
+        }),
       });
     },
   },

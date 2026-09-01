@@ -59,8 +59,8 @@ export function PasswordResetEmail({
             <Hr className="my-8 border-gray-200" />
 
             <Text className="mb-1 text-xs text-gray-500">
-              If the button doesn&apos;t work, copy and paste this URL into
-              your browser:
+              If the button doesn&apos;t work, copy and paste this URL into your
+              browser:
             </Text>
             <Text className="mb-6 break-all text-xs text-gray-500">
               {resetUrl}
@@ -68,10 +68,10 @@ export function PasswordResetEmail({
 
             <div className="rounded-md border border-solid border-amber-200 bg-amber-50 p-4">
               <Text className="m-0 text-sm text-amber-900">
-                <strong>Didn&apos;t request this?</strong> You can safely
-                ignore this email — your password will remain unchanged.
-                Never share this link with anyone; Meridian will never ask
-                for your password.
+                <strong>Didn&apos;t request this?</strong> You can safely ignore
+                this email — your password will remain unchanged. Never share
+                this link with anyone; Meridian will never ask for your
+                password.
               </Text>
             </div>
           </Container>

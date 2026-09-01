@@ -41,8 +41,8 @@ export function VerificationEmail({
             </Heading>
 
             <Text className="mt-3 text-base leading-6 text-gray-700">
-              Click the button below to verify your email address and
-              complete your account setup.
+              Click the button below to verify your email address and complete
+              your account setup.
             </Text>
 
             <Button
@@ -59,16 +59,16 @@ export function VerificationEmail({
             <Hr className="my-8 border-gray-200" />
 
             <Text className="mb-1 text-xs text-gray-500">
-              If the button doesn&apos;t work, copy and paste this URL into
-              your browser:
+              If the button doesn&apos;t work, copy and paste this URL into your
+              browser:
             </Text>
             <Text className="mb-6 break-all text-xs text-gray-500">
               {verificationUrl}
             </Text>
 
             <Text className="m-0 text-sm text-gray-500">
-              If you didn&apos;t create an account, you can safely ignore
-              this email.
+              If you didn&apos;t create an account, you can safely ignore this
+              email.
             </Text>
           </Container>
 

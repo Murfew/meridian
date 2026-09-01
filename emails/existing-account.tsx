@@ -42,8 +42,8 @@ export function ExistingAccountEmail({
 
             <Text className="mt-3 text-base leading-6 text-gray-700">
               Someone just tried to sign up for Meridian using this email
-              address, but an account already exists. If this was you, sign
-              in below instead.
+              address, but an account already exists. If this was you, sign in
+              below instead.
             </Text>
 
             <Button

@@ -27,11 +27,18 @@ export function ExistingAccountEmail({
 
       <Tailwind
         config={{
-          theme: { extend: { colors: { brand: "#4c6ef5" } } },
+          theme: {
+            extend: {
+              colors: { brand: "#4f39f6" },
+              fontFamily: {
+                sans: ["Geist", "ui-sans-serif", "system-ui", "sans-serif"],
+              },
+            },
+          },
         }}
       >
         <Body className="bg-gray-50 font-sans py-12">
-          <Container className="mx-auto max-w-xl rounded-xl border border-solid border-gray-200 bg-white px-8 py-10">
+          <Container className="mx-auto max-w-xl rounded-[0.875rem] border border-solid border-gray-200 bg-white px-8 py-10">
             <Text className="m-0 text-lg font-bold tracking-tight text-gray-900">
               Meridian
             </Text>
@@ -48,7 +55,7 @@ export function ExistingAccountEmail({
 
             <Button
               href={signInUrl}
-              className="mt-6 box-border inline-block rounded-md bg-brand px-6 py-3 font-medium text-white"
+              className="mt-6 box-border inline-block rounded-[0.625rem] bg-brand px-6 py-3 font-medium text-white"
             >
               Sign in
             </Button>

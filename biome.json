@@ -14,6 +14,11 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -24,6 +29,18 @@
       "react": "recommended"
     }
   },
+  "overrides": [
+    {
+      "includes": ["components/ui/label.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noLabelWithoutControl": "off"
+          }
+        }
+      }
+    }
+  ],
   "assist": {
     "actions": {
       "source": {

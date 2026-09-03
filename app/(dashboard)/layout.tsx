@@ -19,6 +19,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import requireUser from "@/lib/auth-guard";
 
 const navItems = [
   { href: "/availability", label: "Availability", icon: CalendarClockIcon },
@@ -26,14 +27,13 @@ const navItems = [
   { href: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
-// TODO: protect this route — call requireUser() from lib/auth-guard.ts here
-// (it redirects to /sign-in when there's no session) and pass the returned
-// user down to wherever this layout should show account info.
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await requireUser();
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">

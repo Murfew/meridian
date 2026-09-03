@@ -1,10 +1,10 @@
 import {
   CalendarCheckIcon,
   CalendarClockIcon,
-  LogOutIcon,
   SettingsIcon,
 } from "lucide-react";
 import Link from "next/link";
+import DashboardSignOut from "@/components/dashboard-sign-out";
 import {
   Sidebar,
   SidebarContent,
@@ -40,9 +40,14 @@ export default async function DashboardLayout({
         <SidebarHeader>
           <Link
             href="/"
-            className="px-2 py-1.5 font-heading text-sm font-medium"
+            className="flex items-center gap-2 rounded-md p-2 font-heading text-sm font-medium"
           >
-            Meridian
+            <span className="flex size-4 shrink-0 items-center justify-center">
+              M
+            </span>
+            <span className="truncate group-data-[collapsible=icon]:hidden">
+              Meridian
+            </span>
           </Link>
         </SidebarHeader>
 
@@ -72,12 +77,7 @@ export default async function DashboardLayout({
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              {/* TODO: wire this up to sign the user out (authClient.signOut
-                  from lib/auth-client.ts) and redirect to /sign-in. */}
-              <SidebarMenuButton tooltip="Sign out">
-                <LogOutIcon />
-                <span>Sign out</span>
-              </SidebarMenuButton>
+              <DashboardSignOut />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

@@ -1,24 +1,38 @@
 "use client";
 
-import {
-  Anchor,
-  Button,
-  Card,
-  Center,
-  PasswordInput,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-} from "@mantine/core";
-import { schemaResolver, useForm } from "@mantine/form";
-import { notifications } from "@mantine/notifications";
-import { CheckCircleIcon } from "@phosphor-icons/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { ErrorContext } from "better-auth/client";
+import { CheckCircle2Icon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
+import { LoadingButton } from "@/components/loading-button";
+import { StatusIconBadge } from "@/components/status-icon-badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { PasswordInput } from "@/components/ui/password-input";
 import { authClient } from "@/lib/auth-client";
+
+const schema = z
+  .object({
+    password: z.string().min(8, { error: "Must be at least 8 characters" }),
+    confirmPassword: z.string().min(1, { error: "Confirm your password" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    error: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+type ResetPasswordValues = z.infer<typeof schema>;
 
 export default function ResetPasswordPage() {
   return (
@@ -30,34 +44,17 @@ export default function ResetPasswordPage() {
 
 function ResetPasswordContent() {
   const token = useSearchParams().get("token") ?? "";
-  const [loading, setLoading] = useState<boolean>(false);
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const schema = z
-    .object({
-      password: z.string().min(8, { error: "Must be at least 8 characters" }),
-      confirmPassword: z.string().min(1, { error: "Confirm your password" }),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      error: "Passwords do not match",
-      path: ["confirmPassword"],
-    });
-
-  const form = useForm({
-    mode: "uncontrolled",
-    initialValues: {
-      password: "",
-      confirmPassword: "",
-    },
-    validate: schemaResolver(schema, { sync: true }),
+  const form = useForm<ResetPasswordValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { password: "", confirmPassword: "" },
   });
 
-  const handleResetPassword = async () => {
+  const handleResetPassword = async (values: ResetPasswordValues) => {
     await authClient.resetPassword(
-      {
-        newPassword: form.getValues().password,
-        token,
-      },
+      { newPassword: values.password, token },
       {
         onRequest: () => {
           setLoading(true);
@@ -66,13 +63,9 @@ function ResetPasswordContent() {
           setLoading(false);
           setSubmitted(true);
         },
-        onError: (ctx) => {
+        onError: (ctx: ErrorContext) => {
           setLoading(false);
-          notifications.show({
-            color: "red",
-            title: "error",
-            message: ctx.error.message,
-          });
+          toast.error(ctx.error.message);
         },
       },
     );
@@ -80,82 +73,79 @@ function ResetPasswordContent() {
 
   if (submitted) {
     return (
-      <Center mih="100vh">
-        <Card withBorder shadow="sm" padding="xl" w={420}>
-          <Stack gap="lg" align="center">
-            <ThemeIcon size={56} radius="xl" color="green" variant="light">
-              <CheckCircleIcon size={32} />
-            </ThemeIcon>
-            <Stack gap={4}>
-              <Title order={2} ta="center">
-                Password reset
-              </Title>
-              <Text c="dimmed" size="sm" ta="center">
-                Your password has been updated. You can now sign in with your
-                new password.
-              </Text>
-            </Stack>
-            <Button color="indigo" fullWidth component={Link} href="/sign-in">
-              Sign in
-            </Button>
-          </Stack>
+      <div className="flex min-h-screen items-center justify-center p-4">
+        <Card className="w-full max-w-105 items-center gap-6 p-6 text-center">
+          <StatusIconBadge icon={<CheckCircle2Icon />} variant="success" />
+          <div className="flex flex-col gap-1">
+            <h1 className="font-heading text-2xl font-medium">
+              Password reset
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Your password has been updated. You can now sign in with your new
+              password.
+            </p>
+          </div>
+          <Button render={<Link href="/sign-in" />} className="w-full">
+            Sign in
+          </Button>
         </Card>
-      </Center>
+      </div>
     );
   }
 
   return (
-    <Center mih="100vh">
-      <Card withBorder shadow="sm" padding="xl" w={420}>
-        <form onSubmit={form.onSubmit(handleResetPassword)}>
-          <Stack gap="lg">
-            <Stack gap={4}>
-              <Title order={2} ta="center">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-105 p-6">
+        <form onSubmit={form.handleSubmit(handleResetPassword)}>
+          <FieldGroup>
+            <div className="flex flex-col gap-1 text-center">
+              <h1 className="font-heading text-2xl font-medium">
                 Set a new password
-              </Title>
-              <Text c="dimmed" size="sm" ta="center">
+              </h1>
+              <p className="text-sm text-muted-foreground">
                 Choose a new password for your account.
-              </Text>
-            </Stack>
-            <Stack gap="md">
-              <PasswordInput
-                label="New Password"
-                placeholder="Enter your new password"
-                withAsterisk
-                required
-                key={form.key("password")}
-                {...form.getInputProps("password")}
-                disabled={loading}
-              />
-              <PasswordInput
-                label="Confirm Password"
-                placeholder="Re-enter your new password"
-                withAsterisk
-                required
-                key={form.key("confirmPassword")}
-                {...form.getInputProps("confirmPassword")}
-                disabled={loading}
-              />
-            </Stack>
-            <Stack gap="md">
-              <Button
-                color="indigo"
-                fullWidth
-                type="submit"
-                loading={loading}
-                disabled={loading}
-              >
+              </p>
+            </div>
+
+            <FieldGroup>
+              <Field data-invalid={!!form.formState.errors.password}>
+                <FieldLabel htmlFor="password">New Password</FieldLabel>
+                <PasswordInput
+                  id="password"
+                  placeholder="Enter your new password"
+                  disabled={loading}
+                  {...form.register("password")}
+                />
+                <FieldError errors={[form.formState.errors.password]} />
+              </Field>
+              <Field data-invalid={!!form.formState.errors.confirmPassword}>
+                <FieldLabel htmlFor="confirmPassword">
+                  Confirm Password
+                </FieldLabel>
+                <PasswordInput
+                  id="confirmPassword"
+                  placeholder="Re-enter your new password"
+                  disabled={loading}
+                  {...form.register("confirmPassword")}
+                />
+                <FieldError errors={[form.formState.errors.confirmPassword]} />
+              </Field>
+            </FieldGroup>
+
+            <FieldGroup>
+              <LoadingButton type="submit" loading={loading} className="w-full">
                 Reset password
-              </Button>
-              <Text ta="center" size="sm">
-                <Anchor href="/sign-in" size="sm" component={Link}>
-                  Back to sign in
-                </Anchor>
-              </Text>
-            </Stack>
-          </Stack>
+              </LoadingButton>
+              <Link
+                href="/sign-in"
+                className="text-center text-sm text-primary underline-offset-4 hover:underline"
+              >
+                Back to sign in
+              </Link>
+            </FieldGroup>
+          </FieldGroup>
         </form>
       </Card>
-    </Center>
+    </div>
   );
 }

@@ -1,61 +1,56 @@
 "use client";
 
-import {
-  Anchor,
-  Button,
-  Card,
-  Center,
-  Stack,
-  Text,
-  TextInput,
-  ThemeIcon,
-  Title,
-} from "@mantine/core";
-import { schemaResolver, useForm } from "@mantine/form";
-import { notifications } from "@mantine/notifications";
-import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { ErrorContext } from "better-auth/client";
+import { MailIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
+import { LoadingButton } from "@/components/loading-button";
+import { StatusIconBadge } from "@/components/status-icon-badge";
+import { Card } from "@/components/ui/card";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
+const schema = z.object({
+  email: z.email({ error: "Invalid email" }),
+});
+
+type ForgotPasswordValues = z.infer<typeof schema>;
+
 export default function ForgotPasswordPage() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [sentTo, setSentTo] = useState("");
 
-  const schema = z.object({
-    email: z.email({ error: "Invalid email" }),
+  const form = useForm<ForgotPasswordValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "" },
   });
 
-  const form = useForm({
-    mode: "uncontrolled",
-    initialValues: {
-      email: "",
-    },
-    validate: schemaResolver(schema, { sync: true }),
-  });
-
-  const handleForgotPassword = async () => {
+  const handleForgotPassword = async (values: ForgotPasswordValues) => {
     await authClient.requestPasswordReset(
-      {
-        email: form.getValues().email,
-        redirectTo: "/reset-password",
-      },
+      { email: values.email, redirectTo: "/reset-password" },
       {
         onRequest: () => {
           setLoading(true);
         },
         onSuccess: () => {
           setLoading(false);
+          setSentTo(values.email);
           setSubmitted(true);
         },
-        onError: (ctx) => {
+        onError: (ctx: ErrorContext) => {
           setLoading(false);
-          notifications.show({
-            color: "red",
-            title: "error",
-            message: ctx.error.message,
-          });
+          toast.error(ctx.error.message);
         },
       },
     );
@@ -63,72 +58,68 @@ export default function ForgotPasswordPage() {
 
   if (submitted) {
     return (
-      <Center mih="100vh">
-        <Card withBorder shadow="sm" padding="xl" w={420}>
-          <Stack gap="lg" align="center">
-            <ThemeIcon size={56} radius="xl" color="indigo" variant="light">
-              <EnvelopeSimpleIcon size={32} />
-            </ThemeIcon>
-            <Stack gap={4}>
-              <Title order={2} ta="center">
-                Check your email
-              </Title>
-              <Text c="dimmed" size="sm" ta="center">
-                We&apos;ve sent a password reset link to{" "}
-                {form.getValues().email}.
-              </Text>
-            </Stack>
-            <Anchor href="/sign-in" size="sm" component={Link}>
-              Back to sign in
-            </Anchor>
-          </Stack>
+      <div className="flex min-h-screen items-center justify-center p-4">
+        <Card className="w-full max-w-105 items-center gap-6 p-6 text-center">
+          <StatusIconBadge icon={<MailIcon />} />
+          <div className="flex flex-col gap-1">
+            <h1 className="font-heading text-2xl font-medium">
+              Check your email
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              We&apos;ve sent a password reset link to {sentTo}.
+            </p>
+          </div>
+          <Link
+            href="/sign-in"
+            className="text-sm text-primary underline-offset-4 hover:underline"
+          >
+            Back to sign in
+          </Link>
         </Card>
-      </Center>
+      </div>
     );
   }
 
   return (
-    <Center mih="100vh">
-      <Card withBorder shadow="sm" padding="xl" w={420}>
-        <form onSubmit={form.onSubmit(handleForgotPassword)}>
-          <Stack gap="lg">
-            <Stack gap={4}>
-              <Title order={2} ta="center">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-105 p-6">
+        <form onSubmit={form.handleSubmit(handleForgotPassword)}>
+          <FieldGroup>
+            <div className="flex flex-col gap-1 text-center">
+              <h1 className="font-heading text-2xl font-medium">
                 Forgot your password?
-              </Title>
-              <Text c="dimmed" size="sm" ta="center">
+              </h1>
+              <p className="text-sm text-muted-foreground">
                 Enter your email and we&apos;ll send you a link to reset it.
-              </Text>
-            </Stack>
-            <TextInput
-              label="Email"
-              placeholder="you@example.com"
-              type="email"
-              withAsterisk
-              required
-              key={form.key("email")}
-              {...form.getInputProps("email")}
-              disabled={loading}
-            />
-            <Stack gap="md">
-              <Button
-                color="indigo"
-                fullWidth
-                type="submit"
-                loading={loading}
+              </p>
+            </div>
+
+            <Field data-invalid={!!form.formState.errors.email}>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
                 disabled={loading}
-              >
+                {...form.register("email")}
+              />
+              <FieldError errors={[form.formState.errors.email]} />
+            </Field>
+
+            <FieldGroup>
+              <LoadingButton type="submit" loading={loading} className="w-full">
                 Send reset link
-              </Button>
-              <Text ta="center" size="sm">
-                <Anchor href="/sign-in" size="sm" component={Link}>
-                  Back to sign in
-                </Anchor>
-              </Text>
-            </Stack>
-          </Stack>
+              </LoadingButton>
+              <Link
+                href="/sign-in"
+                className="text-center text-sm text-primary underline-offset-4 hover:underline"
+              >
+                Back to sign in
+              </Link>
+            </FieldGroup>
+          </FieldGroup>
         </form>
       </Card>
-    </Center>
+    </div>
   );
 }

@@ -1,85 +1,72 @@
 "use client";
 
-import {
-  Anchor,
-  Button,
-  Card,
-  Center,
-  Group,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
-import { schemaResolver, useForm } from "@mantine/form";
-import { notifications } from "@mantine/notifications";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { ErrorContext } from "better-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { z } from "zod/v4";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import z from "zod";
+import { LoadingButton } from "@/components/loading-button";
+import { Card } from "@/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { authClient } from "@/lib/auth-client";
 
+const schema = z.object({
+  name: z.string().min(1, { error: "Enter your full name" }),
+  username: z.string().min(1, { error: "Enter your username" }),
+  displayUsername: z.string().min(1, { error: "Enter you display name" }),
+  email: z.email({ error: "Invalid email" }),
+  password: z.string().min(8, { error: "Must be at least 8 characters" }),
+});
+
+type SignUpValues = z.infer<typeof schema>;
+
 export default function SignUpPage() {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const schema = z
-    .object({
-      name: z.string().min(1, { error: "Enter your full name" }),
-      username: z.string().min(1, { error: "Enter your username" }),
-      displayUsername: z.string().min(1, { error: "Enter you display name" }),
-      email: z.email({ error: "Invalid email" }),
-      password: z.string().min(8, { error: "Must be at least 8 characters" }),
-    })
-    .superRefine(async (data, ctx) => {
-      const { data: response } = await authClient.isUsernameAvailable(
-        {
-          username: data.username,
-        },
-        {
-          onRequest: () => {
-            setLoading(true);
-          },
-          onSuccess: () => {
-            setLoading(false);
-          },
-          onError: (ctx) => {
-            setLoading(false);
-            notifications.show({
-              color: "red",
-              title: "Error",
-              message: ctx.error.message,
-            });
-          },
-        },
-      );
-
-      if (!response?.available) {
-        ctx.addIssue({
-          code: "custom",
-          message: "Username is already taken",
-          path: ["username"],
-        });
-      }
-    });
-
-  const form = useForm({
-    mode: "uncontrolled",
-    initialValues: {
+  const form = useForm<SignUpValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
       name: "",
       username: "",
       displayUsername: "",
       email: "",
       password: "",
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
-    validate: schemaResolver(schema, { sync: true }),
   });
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (values: SignUpValues) => {
+    const { data: availability } = await authClient.isUsernameAvailable({
+      username: values.username,
+    });
+
+    if (!availability?.available) {
+      form.setError("username", { message: "Username is already taken" });
+      return;
+    }
+
+    // Spread as a variable (not an object literal) so the additional
+    // `timezone` field — a better-auth additionalField not present in the
+    // generated signUp.email payload type — passes through at runtime the
+    // same way it did in the Mantine version, without an excess-property error.
+    const payload = {
+      ...values,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    };
+
     await authClient.signUp.email(
-      { ...form.getValues(), callbackURL: "/availability" },
+      { ...payload, callbackURL: "/availability" },
       {
         onRequest: () => {
           setLoading(true);
@@ -87,105 +74,114 @@ export default function SignUpPage() {
         onSuccess: () => {
           setLoading(false);
           router.push(
-            `/verify-email?email=${encodeURIComponent(form.getValues().email)}`,
+            `/verify-email?email=${encodeURIComponent(values.email)}`,
           );
         },
-        onError: (ctx) => {
+        onError: (ctx: ErrorContext) => {
           setLoading(false);
-          notifications.show({
-            color: "red",
-            title: "Error",
-            message: ctx.error.message,
-          });
+          toast.error(ctx.error.message);
         },
       },
     );
   };
 
   return (
-    <Center mih="100vh">
-      <Card withBorder shadow="sm" padding="xl" w={600}>
-        <form onSubmit={form.onSubmit(handleSignUp)}>
-          <Stack gap="lg">
-            <Stack gap={4}>
-              <Title order={2} ta="center">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-150 p-6">
+        <form onSubmit={form.handleSubmit(handleSignUp)}>
+          <FieldGroup>
+            <div className="flex flex-col gap-1 text-center">
+              <h1 className="font-heading text-2xl font-medium">
                 Create an account
-              </Title>
-              <Text c="dimmed" size="sm" ta="center">
+              </h1>
+              <p className="text-sm text-muted-foreground">
                 Enter your details to get started with Meridian.
-              </Text>
-            </Stack>
-            <Stack gap="md">
-              <Group justify="space-between" grow>
-                <TextInput
-                  label="Full Name"
-                  placeholder="Jane Doe"
-                  withAsterisk
-                  required
-                  key={form.key("name")}
-                  {...form.getInputProps("name")}
+              </p>
+            </div>
+
+            <FieldGroup>
+              <div className="grid grid-cols-2 gap-4">
+                <Field data-invalid={!!form.formState.errors.name}>
+                  <FieldLabel htmlFor="name">Full Name</FieldLabel>
+                  <Input
+                    id="name"
+                    placeholder="Jane Doe"
+                    disabled={loading}
+                    {...form.register("name")}
+                  />
+                  <FieldError errors={[form.formState.errors.name]} />
+                </Field>
+                <Field data-invalid={!!form.formState.errors.displayUsername}>
+                  <FieldLabel htmlFor="displayUsername">
+                    Display Name
+                  </FieldLabel>
+                  <Input
+                    id="displayUsername"
+                    placeholder="Jane Doe Hair Salon"
+                    disabled={loading}
+                    {...form.register("displayUsername")}
+                  />
+                  <FieldError
+                    errors={[form.formState.errors.displayUsername]}
+                  />
+                </Field>
+              </div>
+
+              <Field data-invalid={!!form.formState.errors.username}>
+                <FieldLabel htmlFor="username">Username</FieldLabel>
+                <Input
+                  id="username"
+                  placeholder="janedoe"
                   disabled={loading}
+                  {...form.register("username")}
                 />
-                <TextInput
-                  label="Display Name"
-                  placeholder="Jane Doe Hair Salon"
-                  withAsterisk
-                  required
-                  key={form.key("displayUsername")}
-                  {...form.getInputProps("displayUsername")}
+                <FieldError errors={[form.formState.errors.username]} />
+              </Field>
+
+              <Field data-invalid={!!form.formState.errors.email}>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
                   disabled={loading}
+                  {...form.register("email")}
                 />
-              </Group>
-              <TextInput
-                label="Username"
-                placeholder="janedoe"
-                withAsterisk
-                required
-                key={form.key("username")}
-                {...form.getInputProps("username")}
-                disabled={loading}
-              />
-              <TextInput
-                label="Email"
-                placeholder="you@example.com"
-                type="email"
-                withAsterisk
-                required
-                key={form.key("email")}
-                {...form.getInputProps("email")}
-                disabled={loading}
-              />
-              <PasswordInput
-                label="Password"
-                placeholder="Enter your password"
-                description="Must be at least 8 characters."
-                withAsterisk
-                required
-                key={form.key("password")}
-                {...form.getInputProps("password")}
-                disabled={loading}
-              />
-            </Stack>
-            <Stack gap="md">
-              <Button
-                color="indigo"
-                fullWidth
-                type="submit"
-                loading={loading}
-                disabled={loading}
-              >
+                <FieldError errors={[form.formState.errors.email]} />
+              </Field>
+
+              <Field data-invalid={!!form.formState.errors.password}>
+                <FieldLabel htmlFor="password">Password</FieldLabel>
+                <PasswordInput
+                  id="password"
+                  placeholder="Enter your password"
+                  disabled={loading}
+                  {...form.register("password")}
+                />
+                <FieldDescription>
+                  Must be at least 8 characters.
+                </FieldDescription>
+                <FieldError errors={[form.formState.errors.password]} />
+              </Field>
+            </FieldGroup>
+
+            <FieldGroup>
+              <LoadingButton type="submit" loading={loading} className="w-full">
                 Create account
-              </Button>
-              <Text ta="center" size="sm">
+              </LoadingButton>
+              <p className="text-center text-sm">
                 Already have an account?{" "}
-                <Anchor href="/sign-in" size="sm" component={Link}>
+                <Link
+                  href="/sign-in"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
                   Sign in
-                </Anchor>
-              </Text>
-            </Stack>
-          </Stack>
+                </Link>
+              </p>
+            </FieldGroup>
+          </FieldGroup>
         </form>
       </Card>
-    </Center>
+    </div>
   );
 }

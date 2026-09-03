@@ -1,18 +1,13 @@
 "use client";
 
-import {
-  Button,
-  Card,
-  Center,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-} from "@mantine/core";
-import { notifications } from "@mantine/notifications";
-import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
+import type { ErrorContext } from "better-auth/client";
+import { MailIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { toast } from "sonner";
+import { LoadingButton } from "@/components/loading-button";
+import { StatusIconBadge } from "@/components/status-icon-badge";
+import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 
 export default function VerifyEmailPage() {
@@ -25,15 +20,12 @@ export default function VerifyEmailPage() {
 
 function VerifyEmailContent() {
   const email = useSearchParams().get("email") ?? "";
-  const [loading, setLoading] = useState<boolean>(false);
-  const [cooldown, setCooldown] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
 
   const handleResend = async () => {
     await authClient.sendVerificationEmail(
-      {
-        email,
-        callbackURL: "/availability",
-      },
+      { email, callbackURL: "/availability" },
       {
         onRequest: () => {
           setLoading(true);
@@ -41,13 +33,9 @@ function VerifyEmailContent() {
         onSuccess: () => {
           setLoading(false);
         },
-        onError: (ctx) => {
+        onError: (ctx: ErrorContext) => {
           setLoading(false);
-          notifications.show({
-            color: "red",
-            title: "Error",
-            message: ctx.error.message,
-          });
+          toast.error(ctx.error.message);
         },
       },
     );
@@ -64,31 +52,27 @@ function VerifyEmailContent() {
   };
 
   return (
-    <Center mih="100vh">
-      <Card withBorder shadow="sm" padding="xl" w={420}>
-        <Stack gap="lg" align="center">
-          <ThemeIcon size={56} radius="xl" color="indigo" variant="light">
-            <EnvelopeSimpleIcon size={32} />
-          </ThemeIcon>
-          <Stack gap={4}>
-            <Title order={2} ta="center">
-              Check your email
-            </Title>
-            <Text c="dimmed" size="sm" ta="center">
-              We&apos;ve sent a verification link to {email}.
-            </Text>
-          </Stack>
-          <Button
-            variant="default"
-            fullWidth
-            onClick={handleResend}
-            loading={loading}
-            disabled={loading || cooldown > 0}
-          >
-            {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend email"}{" "}
-          </Button>
-        </Stack>
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-105 items-center gap-6 p-6 text-center">
+        <StatusIconBadge icon={<MailIcon />} />
+        <div className="flex flex-col gap-1">
+          <h1 className="font-heading text-2xl font-medium">
+            Check your email
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            We&apos;ve sent a verification link to {email}.
+          </p>
+        </div>
+        <LoadingButton
+          variant="outline"
+          className="w-full"
+          onClick={handleResend}
+          loading={loading}
+          disabled={loading || cooldown > 0}
+        >
+          {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend email"}
+        </LoadingButton>
       </Card>
-    </Center>
+    </div>
   );
 }

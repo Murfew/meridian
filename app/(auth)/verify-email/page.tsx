@@ -30,15 +30,14 @@ function VerifyEmailContent() {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {
-          setLoading(false);
-        },
+
         onError: (ctx: ErrorContext) => {
           setLoading(false);
           toast.error(ctx.error.message);
         },
       },
     );
+
     setCooldown(30);
     const t = setInterval(() => {
       setCooldown((c) => {

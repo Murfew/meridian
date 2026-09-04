@@ -60,7 +60,6 @@ function ResetPasswordContent() {
           setLoading(true);
         },
         onSuccess: () => {
-          setLoading(false);
           setSubmitted(true);
         },
         onError: (ctx: ErrorContext) => {

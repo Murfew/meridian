@@ -44,7 +44,6 @@ export default function ForgotPasswordPage() {
           setLoading(true);
         },
         onSuccess: () => {
-          setLoading(false);
           setSentTo(values.email);
           setSubmitted(true);
         },

@@ -68,7 +68,6 @@ export default function SignUpPage() {
           setLoading(true);
         },
         onSuccess: () => {
-          setLoading(false);
           router.push(
             `/verify-email?email=${encodeURIComponent(values.email)}`,
           );

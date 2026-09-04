@@ -39,9 +39,6 @@ export default function SignInPage() {
       onRequest: () => {
         setLoading(true);
       },
-      onSuccess: () => {
-        setLoading(false);
-      },
       onError: (ctx: ErrorContext) => {
         setLoading(false);
         form.resetField("password");

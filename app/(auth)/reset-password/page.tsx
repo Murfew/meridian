@@ -9,8 +9,8 @@ import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "@/components/loading-button";
-import { StatusIconBadge } from "@/components/status-icon-badge";
+import LoadingButton from "@/components/loading-button";
+import StatusIconBadge from "@/components/status-icon-badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {

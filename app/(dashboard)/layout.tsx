@@ -1,9 +1,5 @@
-import {
-  CalendarCheckIcon,
-  CalendarClockIcon,
-  SettingsIcon,
-} from "lucide-react";
 import Link from "next/link";
+import DashboardNav from "@/components/dashboard-nav";
 import DashboardSignOut from "@/components/dashboard-sign-out";
 import {
   Sidebar,
@@ -14,18 +10,11 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import requireUser from "@/lib/auth-guard";
-
-const navItems = [
-  { href: "/availability", label: "Availability", icon: CalendarClockIcon },
-  { href: "/bookings", label: "Bookings", icon: CalendarCheckIcon },
-  { href: "/settings", label: "Settings", icon: SettingsIcon },
-];
 
 export default async function DashboardLayout({
   children,
@@ -54,22 +43,7 @@ export default async function DashboardLayout({
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu>
-                {navItems.map((item) => (
-                  <SidebarMenuItem key={item.href}>
-                    {/* TODO: mark the current route active — compare the
-                        current pathname to item.href and pass the result as
-                        `isActive` below (needs a client component). */}
-                    <SidebarMenuButton
-                      render={<Link href={item.href} />}
-                      tooltip={item.label}
-                    >
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
+              <DashboardNav />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

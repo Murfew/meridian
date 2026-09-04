@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ErrorContext } from "better-auth/client";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,6 +29,7 @@ type SignInValues = z.infer<typeof schema>;
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(schema),
@@ -47,7 +49,7 @@ export default function SignInPage() {
     };
 
     const { identifier, password } = values;
-    const callbackURL = "/availability";
+    const callbackURL = searchParams.get("callbackUrl") || "/availability";
 
     if (identifier.includes("@")) {
       await authClient.signIn.email(

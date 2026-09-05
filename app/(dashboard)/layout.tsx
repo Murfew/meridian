@@ -14,15 +14,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import requireUser from "@/lib/auth-guard";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await requireUser();
-
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">

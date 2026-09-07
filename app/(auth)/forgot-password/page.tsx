@@ -8,8 +8,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "@/components/loading-button";
-import { StatusIconBadge } from "@/components/status-icon-badge";
+import LoadingButton from "@/components/loading-button";
+import StatusIconBadge from "@/components/status-icon-badge";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -44,7 +44,6 @@ export default function ForgotPasswordPage() {
           setLoading(true);
         },
         onSuccess: () => {
-          setLoading(false);
           setSentTo(values.email);
           setSubmitted(true);
         },

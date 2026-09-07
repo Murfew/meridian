@@ -5,8 +5,8 @@ import { MailIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { LoadingButton } from "@/components/loading-button";
-import { StatusIconBadge } from "@/components/status-icon-badge";
+import LoadingButton from "@/components/loading-button";
+import StatusIconBadge from "@/components/status-icon-badge";
 import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 
@@ -30,15 +30,14 @@ function VerifyEmailContent() {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {
-          setLoading(false);
-        },
+
         onError: (ctx: ErrorContext) => {
           setLoading(false);
           toast.error(ctx.error.message);
         },
       },
     );
+
     setCooldown(30);
     const t = setInterval(() => {
       setCooldown((c) => {

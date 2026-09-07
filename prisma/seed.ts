@@ -1,9 +1,12 @@
+import { randomUUID } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { hashPassword } from "better-auth/crypto";
 import "dotenv/config";
 import "@/lib/contsants";
+import type { Prisma } from "@/app/generated/prisma/client";
 import { FRI, MON, THU, TUE, WED } from "@/lib/contsants";
 import { minutesSinceMidnight } from "@/lib/utils";
+import { PrismaClient } from "../app/generated/prisma/client";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
@@ -11,26 +14,29 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter });
 
-type Seed = {
-  name: string;
-  email: string;
-  username: string;
-  displayUsername: string;
-  timezone: string;
-  description: string;
-  defaultDurationMinutes: number;
-  availability: { dayOfWeek: number; startMinute: number; endMinute: number }[];
+const PASSWORD = "Password123!";
+
+type SeedAvailability = Pick<
+  Prisma.AvailabilityCreateManyInput,
+  "dayOfWeek" | "startMinute" | "endMinute"
+>;
+
+type SeedUser = Prisma.UserCreateInput & {
+  password: string;
+  availability: SeedAvailability[];
 };
 
-const seeds: Seed[] = [
+const users: SeedUser[] = [
   {
     name: "Alice Tremblay",
     email: "alice@example.com",
+    emailVerified: true,
     username: "alice",
     displayUsername: "Alice's Hair Salon",
     timezone: "America/Montreal",
     description: "Product designer. Book a 30-minute intro call.",
     defaultDurationMinutes: 30,
+    password: PASSWORD,
     availability: [
       {
         dayOfWeek: MON,
@@ -67,11 +73,13 @@ const seeds: Seed[] = [
   {
     name: "Bob Nakamura",
     email: "bob@example.com",
+    emailVerified: true,
     username: "bob",
     displayUsername: "Bob's Barber Shop",
     timezone: "America/Vancouver",
     description: "Engineering mentor. 60-minute sessions.",
     defaultDurationMinutes: 60,
+    password: PASSWORD,
     availability: [
       {
         dayOfWeek: WED,
@@ -90,22 +98,46 @@ const seeds: Seed[] = [
 export async function main() {
   console.log("🌱 Starting database seed...");
 
-  for (const s of seeds) {
-    const { availability, ...user } = s;
+  for (const seedUser of users) {
+    const { availability, password, ...userData } = seedUser;
 
-    const upserted = await prisma.user.upsert({
-      where: { email: user.email },
-      update: user,
-      create: user,
+    const user = await prisma.user.upsert({
+      where: { email: userData.email },
+      update: userData,
+      create: userData,
     });
 
-    await prisma.availability.deleteMany({ where: { ownerId: upserted.id } });
+    await prisma.availability.deleteMany({ where: { ownerId: user.id } });
     await prisma.availability.createMany({
-      data: availability.map((a) => ({ ...a, ownerId: upserted.id })),
+      data: availability.map((a) => ({ ...a, ownerId: user.id })),
     });
+
+    const passwordHash = await hashPassword(password);
+    const existingAccount = await prisma.account.findFirst({
+      where: { userId: user.id, providerId: "credential" },
+    });
+
+    if (existingAccount) {
+      await prisma.account.update({
+        where: { id: existingAccount.id },
+        data: { password: passwordHash, updatedAt: new Date() },
+      });
+    } else {
+      await prisma.account.create({
+        data: {
+          id: randomUUID(),
+          userId: user.id,
+          providerId: "credential",
+          accountId: user.id,
+          password: passwordHash,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+    }
 
     console.log(
-      `✅ ${upserted.username} (${upserted.timezone}) — ${availability.length} availability rules`,
+      `✅ ${user.username} (${user.timezone}) — ${availability.length} availability rules`,
     );
   }
 

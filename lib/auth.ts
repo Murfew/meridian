@@ -24,6 +24,15 @@ export const auth = betterAuth({
     ],
     protocol: "auto",
   },
+  trustedOrigins:
+    process.env.NODE_ENV === "production"
+      ? [
+          "meridianbooking.com",
+          "www.meridianbooking.com",
+          "*.vercel.app",
+          "localhost:3000",
+        ]
+      : ["meridianbooking.com", "www.meridianbooking.com", "*.vercel.app"],
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

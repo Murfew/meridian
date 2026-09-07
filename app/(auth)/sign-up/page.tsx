@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "@/components/loading-button";
+import LoadingButton from "@/components/loading-button";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -56,10 +56,6 @@ export default function SignUpPage() {
       return;
     }
 
-    // Spread as a variable (not an object literal) so the additional
-    // `timezone` field — a better-auth additionalField not present in the
-    // generated signUp.email payload type — passes through at runtime the
-    // same way it did in the Mantine version, without an excess-property error.
     const payload = {
       ...values,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -72,7 +68,6 @@ export default function SignUpPage() {
           setLoading(true);
         },
         onSuccess: () => {
-          setLoading(false);
           router.push(
             `/verify-email?email=${encodeURIComponent(values.email)}`,
           );

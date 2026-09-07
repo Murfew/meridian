@@ -3,11 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ErrorContext } from "better-auth/client";
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "@/components/loading-button";
+import LoadingButton from "@/components/loading-button";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -27,7 +28,16 @@ const schema = z.object({
 type SignInValues = z.infer<typeof schema>;
 
 export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignInContent />
+    </Suspense>
+  );
+}
+
+function SignInContent() {
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(schema),
@@ -39,9 +49,6 @@ export default function SignInPage() {
       onRequest: () => {
         setLoading(true);
       },
-      onSuccess: () => {
-        setLoading(false);
-      },
       onError: (ctx: ErrorContext) => {
         setLoading(false);
         form.resetField("password");
@@ -50,7 +57,7 @@ export default function SignInPage() {
     };
 
     const { identifier, password } = values;
-    const callbackURL = "/availability";
+    const callbackURL = searchParams.get("callbackUrl") || "/availability";
 
     if (identifier.includes("@")) {
       await authClient.signIn.email(

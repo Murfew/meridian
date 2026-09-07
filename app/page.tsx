@@ -1,18 +1,7 @@
-import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import requireUser from "@/lib/auth-guard";
 
-export default async function Home() {
-  const users = await prisma.user.findMany();
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <ol>
-          {users.map((user) => (
-            <li key={user.id} className="mb-2">
-              {user.name}
-            </li>
-          ))}
-        </ol>
-      </main>
-    </div>
-  );
+export default async function RootPage() {
+  await requireUser();
+  redirect("/availability");
 }

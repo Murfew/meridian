@@ -6,7 +6,7 @@ type StatusIconBadgeProps = {
   className?: string;
 };
 
-function StatusIconBadge({
+export default function StatusIconBadge({
   icon,
   variant = "default",
   className,
@@ -25,5 +25,3 @@ function StatusIconBadge({
     </div>
   );
 }
-
-export { StatusIconBadge };

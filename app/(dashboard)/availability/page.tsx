@@ -19,7 +19,9 @@ export default async function AvailabilityPage({
   searchParams,
 }: PageProps<"/availability">) {
   const query = stringifyQueryParams(await searchParams);
-  await requireUser(query ? `/availability?${query}` : "/availability");
+  const user = await requireUser(
+    query ? `/availability?${query}` : "/availability",
+  );
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
@@ -77,7 +79,7 @@ export default async function AvailabilityPage({
 
         <CardFooter className="justify-end gap-2">
           <p className="mr-auto text-xs text-muted-foreground">
-            Timezone: America/Montreal
+            Timezone: {user.timezone}
           </p>
           <LoadingButton type="button">Save changes</LoadingButton>
         </CardFooter>

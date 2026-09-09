@@ -52,14 +52,36 @@ export default function AvailabilityEditor() {
             <div className="flex flex-col items-start gap-1.5 pl-11 sm:flex-1 sm:flex-row sm:items-center sm:gap-2 sm:pl-0">
               <Input
                 type="time"
-                defaultValue={day.start}
+                value={day.start}
+                onValueChange={(value) =>
+                  setData(
+                    data.map((d) => {
+                      if (d.label === day.label) {
+                        return { ...d, start: value };
+                      } else {
+                        return d;
+                      }
+                    }),
+                  )
+                }
                 aria-label={`${day.label} start time`}
                 className="w-full sm:w-32"
               />
               <span className="text-sm text-muted-foreground">to</span>
               <Input
                 type="time"
-                defaultValue={day.end}
+                value={day.end}
+                onValueChange={(value) =>
+                  setData(
+                    data.map((d) => {
+                      if (d.label === day.label) {
+                        return { ...d, end: value };
+                      } else {
+                        return d;
+                      }
+                    }),
+                  )
+                }
                 aria-label={`${day.label} end time`}
                 className="w-full sm:w-32"
               />

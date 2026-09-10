@@ -2,10 +2,8 @@ import { randomUUID } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hashPassword } from "better-auth/crypto";
 import "dotenv/config";
-import "@/lib/contsants";
 import type { Prisma } from "@/app/generated/prisma/client";
-import { FRI, MON, THU, TUE, WED } from "@/lib/contsants";
-import { minutesSinceMidnight } from "@/lib/utils";
+import { FRI, MON, minutesSinceMidnight, THU, TUE, WED } from "@/lib/time";
 import { PrismaClient } from "../app/generated/prisma/client";
 
 const adapter = new PrismaPg({

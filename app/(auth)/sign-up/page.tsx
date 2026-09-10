@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import LoadingButton from "@/components/loading-button";
+import { LoadingButton } from "@/components/loading-button";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -31,7 +31,7 @@ const schema = z.object({
 
 type SignUpValues = z.infer<typeof schema>;
 
-export default function SignUpPage() {
+export function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 

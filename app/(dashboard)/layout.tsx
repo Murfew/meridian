@@ -1,6 +1,6 @@
 import Link from "next/link";
-import DashboardNav from "@/app/(dashboard)/_components/dashboard-nav";
-import DashboardSignOut from "@/app/(dashboard)/_components/dashboard-sign-out";
+import { DashboardNav } from "@/components/dashboard/nav";
+import { DashboardSignOut } from "@/components/dashboard/sign-out-button";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +15,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-export default async function DashboardLayout({
+export async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -8,7 +8,7 @@ import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import LoadingButton from "@/components/loading-button";
+import { LoadingButton } from "@/components/loading-button";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -27,7 +27,7 @@ const schema = z.object({
 
 type SignInValues = z.infer<typeof schema>;
 
-export default function SignInPage() {
+export function SignInPage() {
   return (
     <Suspense>
       <SignInContent />

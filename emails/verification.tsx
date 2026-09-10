@@ -92,5 +92,3 @@ VerificationEmail.PreviewProps = {
   verificationUrl: "https://example.com/verify?token=abc123xyz",
   expiresIn: "24 hours",
 } satisfies VerificationEmailProps;
-
-export default VerificationEmail;

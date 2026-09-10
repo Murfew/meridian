@@ -1,10 +1,10 @@
-import AvailabilityEditor from "@/app/(dashboard)/_components/availability-editor";
-import LoadingButton from "@/components/loading-button";
+import { AvailabilityEditor } from "@/components/availability/editor";
+import { LoadingButton } from "@/components/loading-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import requireUser from "@/lib/auth-guard";
-import stringifyQueryParams from "@/lib/query-params";
+import { requireUser } from "@/lib/auth-guard";
+import { stringifyQueryParams } from "@/lib/query-params";
 
-export default async function AvailabilityPage({
+export async function AvailabilityPage({
   searchParams,
 }: PageProps<"/availability">) {
   const query = stringifyQueryParams(await searchParams);

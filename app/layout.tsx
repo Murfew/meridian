@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Scheduling and booking, made simple.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"

@@ -8,8 +8,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import LoadingButton from "@/components/loading-button";
-import StatusIconBadge from "@/components/status-icon-badge";
+import { LoadingButton } from "@/components/loading-button";
+import { StatusIconBadge } from "@/components/status-icon-badge";
 import { Card } from "@/components/ui/card";
 import {
   Field,
@@ -26,7 +26,7 @@ const schema = z.object({
 
 type ForgotPasswordValues = z.infer<typeof schema>;
 
-export default function ForgotPasswordPage() {
+export function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sentTo, setSentTo] = useState("");

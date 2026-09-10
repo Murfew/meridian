@@ -1,21 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useAvailability } from "@/components/availability/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 
-const days = [
-  { label: "Monday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Tuesday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Wednesday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Thursday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Friday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Saturday", enabled: false, start: "09:00", end: "17:00" },
-  { label: "Sunday", enabled: false, start: "09:00", end: "17:00" },
-];
-
-export default function AvailabilityEditor() {
-  const [data, setData] = useState(days);
+export function AvailabilityEditor() {
+  const { data, setData } = useAvailability();
 
   return (
     <ul className="flex flex-col">

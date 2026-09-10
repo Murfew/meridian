@@ -6,7 +6,7 @@ type StatusIconBadgeProps = {
   className?: string;
 };
 
-export default function StatusIconBadge({
+export function StatusIconBadge({
   icon,
   variant = "default",
   className,

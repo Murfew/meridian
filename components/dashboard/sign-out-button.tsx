@@ -9,7 +9,7 @@ import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 
-export default function DashboardSignOut() {
+export function DashboardSignOut() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

@@ -1,5 +1,6 @@
 import { AvailabilityEditor } from "@/components/availability/editor";
-import { LoadingButton } from "@/components/loading-button";
+import { AvailabilityForm } from "@/components/availability/form";
+import { AvailabilitySaveButton } from "@/components/availability/save-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { requireUser } from "@/lib/auth-guard";
 import { stringifyQueryParams } from "@/lib/query-params";
@@ -22,18 +23,20 @@ export async function AvailabilityPage({
         </p>
       </div>
 
-      <Card>
-        <CardContent>
-          <AvailabilityEditor />
-        </CardContent>
+      <AvailabilityForm>
+        <Card>
+          <CardContent>
+            <AvailabilityEditor />
+          </CardContent>
 
-        <CardFooter className="justify-end gap-2">
-          <p className="mr-auto text-xs text-muted-foreground">
-            Timezone: {user.timezone}
-          </p>
-          <LoadingButton type="button">Save changes</LoadingButton>
-        </CardFooter>
-      </Card>
+          <CardFooter className="justify-end gap-2">
+            <p className="mr-auto text-xs text-muted-foreground">
+              Timezone: {user.timezone}
+            </p>
+            <AvailabilitySaveButton />
+          </CardFooter>
+        </Card>
+      </AvailabilityForm>
     </div>
   );
 }

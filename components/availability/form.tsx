@@ -8,7 +8,7 @@ import {
   useContext,
   useState,
 } from "react";
-import type { Day } from "@/types/availability/types";
+import type { Day } from "@/types/availability";
 
 const AvailabilityContext = createContext<{
   data: Day[];

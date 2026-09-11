@@ -41,7 +41,7 @@ model Availability {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  @@index([ownerId, dayOfWeek])
+  @@unique([ownerId, dayOfWeek])
   @@map("availability")
 }
 

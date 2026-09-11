@@ -1,10 +1,24 @@
-export const SUN = 0;
-export const MON = 1;
-export const TUE = 2;
-export const WED = 3;
-export const THU = 4;
-export const FRI = 5;
-export const SAT = 6;
+export const SUNDAY = "Sunday";
+export const MONDAY = "Monday";
+export const TUESDAY = "Tuesday";
+export const WEDNESDAY = "Wednesday";
+export const THURSDAY = "Thursday";
+export const FRIDAY = "Friday";
+export const SATURDAY = "Saturday";
+
+export const DAYS = [
+  SUNDAY,
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY,
+];
+
+export function getDayNumber(day: string) {
+  return DAYS.indexOf(day);
+}
 
 export function minutesSinceMidnight(hour: number, minute = 0) {
   return hour * 60 + minute;

@@ -8,6 +8,15 @@ import {
   useContext,
   useState,
 } from "react";
+import {
+  FRIDAY,
+  MONDAY,
+  SATURDAY,
+  SUNDAY,
+  THURSDAY,
+  TUESDAY,
+  WEDNESDAY,
+} from "@/lib/time";
 import type { Day } from "@/types/availability";
 
 const AvailabilityContext = createContext<{
@@ -16,13 +25,13 @@ const AvailabilityContext = createContext<{
 } | null>(null);
 
 const days = [
-  { label: "Monday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Tuesday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Wednesday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Thursday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Friday", enabled: true, start: "09:00", end: "17:00" },
-  { label: "Saturday", enabled: false, start: "09:00", end: "17:00" },
-  { label: "Sunday", enabled: false, start: "09:00", end: "17:00" },
+  { label: MONDAY, enabled: true, start: "09:00", end: "17:00" },
+  { label: TUESDAY, enabled: true, start: "09:00", end: "17:00" },
+  { label: WEDNESDAY, enabled: true, start: "09:00", end: "17:00" },
+  { label: THURSDAY, enabled: true, start: "09:00", end: "17:00" },
+  { label: FRIDAY, enabled: true, start: "09:00", end: "17:00" },
+  { label: SATURDAY, enabled: false, start: "09:00", end: "17:00" },
+  { label: SUNDAY, enabled: false, start: "09:00", end: "17:00" },
 ];
 
 export function AvailabilityForm({ children }: { children: ReactNode }) {

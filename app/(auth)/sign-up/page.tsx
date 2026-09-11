@@ -31,7 +31,7 @@ const schema = z.object({
 
 type SignUpValues = z.infer<typeof schema>;
 
-export function SignUpPage() {
+export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 

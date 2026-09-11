@@ -26,7 +26,7 @@ const schema = z.object({
 
 type ForgotPasswordValues = z.infer<typeof schema>;
 
-export function ForgotPasswordPage() {
+export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sentTo, setSentTo] = useState("");

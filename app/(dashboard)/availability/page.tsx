@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { requireUser } from "@/lib/auth-guard";
 import { stringifyQueryParams } from "@/lib/query-params";
 
-export async function AvailabilityPage({
+export default async function AvailabilityPage({
   searchParams,
 }: PageProps<"/availability">) {
   const query = stringifyQueryParams(await searchParams);

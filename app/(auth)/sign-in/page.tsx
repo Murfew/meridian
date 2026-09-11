@@ -27,7 +27,7 @@ const schema = z.object({
 
 type SignInValues = z.infer<typeof schema>;
 
-export function SignInPage() {
+export default function SignInPage() {
   return (
     <Suspense>
       <SignInContent />

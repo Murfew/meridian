@@ -10,7 +10,7 @@ import { StatusIconBadge } from "@/components/status-icon-badge";
 import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 
-export function VerifyEmailPage() {
+export default function VerifyEmailPage() {
   return (
     <Suspense>
       <VerifyEmailContent />

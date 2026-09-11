@@ -34,7 +34,7 @@ const schema = z
 
 type ResetPasswordValues = z.infer<typeof schema>;
 
-export function ResetPasswordPage() {
+export default function ResetPasswordPage() {
   return (
     <Suspense>
       <ResetPasswordContent />

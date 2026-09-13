@@ -87,5 +87,3 @@ ExistingAccountEmail.PreviewProps = {
   signInUrl: "https://example.com/sign-in",
   resetPasswordUrl: "https://example.com/forgot-password",
 } satisfies ExistingAccountEmailProps;
-
-export default ExistingAccountEmail;

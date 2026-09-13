@@ -1,5 +1,5 @@
-import requireUser from "@/lib/auth-guard";
-import stringifyQueryParams from "@/lib/query-params";
+import { requireUser } from "@/lib/auth-guard";
+import { stringifyQueryParams } from "@/lib/query-params";
 
 export default async function SettingsPage({
   searchParams,

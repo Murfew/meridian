@@ -2,10 +2,16 @@ import { randomUUID } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hashPassword } from "better-auth/crypto";
 import "dotenv/config";
-import "@/lib/contsants";
 import type { Prisma } from "@/app/generated/prisma/client";
-import { FRI, MON, THU, TUE, WED } from "@/lib/contsants";
-import { minutesSinceMidnight } from "@/lib/utils";
+import {
+  FRIDAY,
+  getDayNumber,
+  MONDAY,
+  minutesSinceMidnight,
+  THURSDAY,
+  TUESDAY,
+  WEDNESDAY,
+} from "@/lib/time";
 import { PrismaClient } from "../app/generated/prisma/client";
 
 const adapter = new PrismaPg({
@@ -21,7 +27,7 @@ type SeedAvailability = Pick<
   "dayOfWeek" | "startMinute" | "endMinute"
 >;
 
-type SeedUser = Prisma.UserCreateInput & {
+type SeedUser = Omit<Prisma.UserCreateInput, "availability"> & {
   password: string;
   availability: SeedAvailability[];
 };
@@ -39,34 +45,25 @@ const users: SeedUser[] = [
     password: PASSWORD,
     availability: [
       {
-        dayOfWeek: MON,
+        dayOfWeek: getDayNumber(MONDAY),
         startMinute: minutesSinceMidnight(9),
         endMinute: minutesSinceMidnight(12),
       },
       {
-        dayOfWeek: MON,
-        startMinute: minutesSinceMidnight(13),
-        endMinute: minutesSinceMidnight(17),
-      },
-      {
-        dayOfWeek: TUE,
+        dayOfWeek: getDayNumber(TUESDAY),
         startMinute: minutesSinceMidnight(9),
         endMinute: minutesSinceMidnight(17),
       },
+
       {
-        dayOfWeek: WED,
+        dayOfWeek: getDayNumber(WEDNESDAY),
         startMinute: minutesSinceMidnight(13),
         endMinute: minutesSinceMidnight(17),
       },
       {
-        dayOfWeek: THU,
+        dayOfWeek: getDayNumber(THURSDAY),
         startMinute: minutesSinceMidnight(9),
         endMinute: minutesSinceMidnight(12),
-      },
-      {
-        dayOfWeek: TUE,
-        startMinute: minutesSinceMidnight(18),
-        endMinute: minutesSinceMidnight(20),
       },
     ],
   },
@@ -82,12 +79,12 @@ const users: SeedUser[] = [
     password: PASSWORD,
     availability: [
       {
-        dayOfWeek: WED,
+        dayOfWeek: getDayNumber(WEDNESDAY),
         startMinute: minutesSinceMidnight(10),
         endMinute: minutesSinceMidnight(16),
       },
       {
-        dayOfWeek: FRI,
+        dayOfWeek: getDayNumber(FRIDAY),
         startMinute: minutesSinceMidnight(10),
         endMinute: minutesSinceMidnight(16),
       },

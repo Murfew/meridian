@@ -1,4 +1,4 @@
-export default function stringifyQueryParams(
+export function stringifyQueryParams(
   queryParams: Record<string, string | string[] | undefined>,
 ) {
   const params = new URLSearchParams();

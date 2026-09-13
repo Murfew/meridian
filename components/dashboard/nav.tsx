@@ -19,7 +19,7 @@ const navItems = [
   { href: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
-export default function DashboardNav() {
+export function DashboardNav() {
   const pathname = usePathname();
 
   return (

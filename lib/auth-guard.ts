@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 
-export default async function requireUser(callbackUrl?: string) {
+export async function requireUser(callbackUrl?: string) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });

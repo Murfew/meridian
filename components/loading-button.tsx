@@ -6,7 +6,7 @@ type LoadingButtonProps = React.ComponentProps<typeof Button> & {
   loading?: boolean;
 };
 
-export default function LoadingButton({
+export function LoadingButton({
   loading,
   disabled,
   children,

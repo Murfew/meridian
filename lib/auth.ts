@@ -11,23 +11,25 @@ const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours
 const RESET_PASSWORD_TOKEN_DURATION = 60 * 60; // 1 hour
 
 const APP_HOSTS = [
-  "meridianbooking.com",
   "www.meridianbooking.com",
-  "*.vercel.app",
+  process.env.VERCEL_URL!,
+  process.env.VERCEL_BRANCH_URL!,
 ];
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: {
-    allowedHosts: [...APP_HOSTS, "localhost:3000"],
-    protocol: "auto",
-  },
-  trustedOrigins:
+  baseURL:
     process.env.NODE_ENV === "production"
-      ? [...APP_HOSTS, "localhost:3000"]
-      : APP_HOSTS,
+      ? {
+          allowedHosts: APP_HOSTS,
+          protocol: "https",
+        }
+      : {
+          allowedHosts: [...APP_HOSTS, "localhost:3000"],
+          protocol: "http",
+        },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
@@ -44,8 +46,7 @@ export const auth = betterAuth({
 
     onExistingUserSignUp: async ({ user }, request) => {
       const origin =
-        (request ? getOrigin(request.url) : null) ??
-        "https://meridianbooking.com";
+        (request ? getOrigin(request.url) : null) ?? "www.meridianbooking.com";
 
       void sendEmail({
         to: user.email,

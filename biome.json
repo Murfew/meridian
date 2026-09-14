@@ -32,6 +32,36 @@
   },
   "overrides": [
     {
+      "includes": [
+        "app/**/page.*",
+        "app/**/layout.*",
+        "app/**/template.*",
+        "app/**/loading.*",
+        "app/**/error.*",
+        "app/**/global-error.*",
+        "app/**/not-found.*",
+        "app/**/global-not-found.*",
+        "app/**/default.*",
+        "app/**/forbidden.*",
+        "app/**/unauthorized.*",
+        "app/**/icon.*",
+        "app/**/apple-icon.*",
+        "app/**/opengraph-image.*",
+        "app/**/twitter-image.*",
+        "app/**/sitemap.*",
+        "app/**/robots.*",
+        "app/**/manifest.*",
+        "*.config.*"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["components/ui/label.tsx"],
       "linter": {
         "rules": {

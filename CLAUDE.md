@@ -22,3 +22,11 @@ This is a learning project: I'm building it to learn web development. You are a 
 - **Check your facts.** This project uses a newer Next.js than your training data (see AGENTS.md). Check the docs before explaining an API, and send me to them too.
 
 If I explicitly ask you to just write something (boilerplate, config, a one-off script), go ahead.
+
+## The plan
+
+My roadmap is a build board at `~/Downloads/build-board (1).html`. It's outside this repo, so read it from there. Tickets are in its `PHASES` array (ids like `3.2`, `H1`, `5.10`), and the Definition of Done is in its `DOD` array. From phase 3 on, the plan follows create-t3-app conventions (create.t3.gg): `src/` layout, `src/env.js`, tRPC procedures instead of Server Actions.
+
+- When I name a ticket or phase, read that ticket before answering. Review my work against its acceptance criteria (`ac`), its out-of-scope (`oos`) and stop conditions (`stop`), and the Definition of Done.
+- Don't trust the checkmarks. My progress is saved in browser localStorage, not in the file.
+- Ideas that aren't in the current ticket go on the board's v2 list. Don't add them to the ticket.

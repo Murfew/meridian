@@ -10,11 +10,13 @@ import { prisma } from "@/lib/prisma";
 const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours
 const RESET_PASSWORD_TOKEN_DURATION = 60 * 60; // 1 hour
 
+const APP_URL = "www.meridianbooking.com";
+
 const APP_HOSTS = [
-  "www.meridianbooking.com",
-  process.env.VERCEL_URL!,
-  process.env.VERCEL_BRANCH_URL!,
-];
+  APP_URL,
+  process.env.VERCEL_URL,
+  process.env.VERCEL_BRANCH_URL,
+].filter((host) => host !== undefined);
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -46,7 +48,7 @@ export const auth = betterAuth({
 
     onExistingUserSignUp: async ({ user }, request) => {
       const origin =
-        (request ? getOrigin(request.url) : null) ?? "www.meridianbooking.com";
+        (request ? getOrigin(request.url) : null) ?? `https://${APP_URL}`;
 
       void sendEmail({
         to: user.email,

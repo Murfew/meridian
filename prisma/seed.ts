@@ -20,7 +20,10 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter });
 
-const PASSWORD = "Password123!";
+const PASSWORD = process.env.SEED_USER_PASSWORD;
+if (!PASSWORD) {
+  throw new Error("Missing SEED_USER_PASSWORD environment variable.");
+}
 
 type SeedAvailability = Pick<
   Prisma.AvailabilityCreateManyInput,

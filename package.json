@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
+    "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",
     "db:dev": "prisma migrate dev",
     "db:generate": "prisma generate",

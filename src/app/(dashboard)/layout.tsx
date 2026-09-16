@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { DashboardNav } from "@/components/dashboard/nav";
-import { DashboardSignOut } from "@/components/dashboard/sign-out-button";
+import { DashboardNav } from "~/components/dashboard/nav";
+import { DashboardSignOut } from "~/components/dashboard/sign-out-button";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "~/components/ui/sidebar";
 
 export default async function DashboardLayout({
   children,

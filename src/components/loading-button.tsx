@@ -1,6 +1,6 @@
 import type * as React from "react";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import { Button } from "~/components/ui/button";
+import { Spinner } from "~/components/ui/spinner";
 
 type LoadingButtonProps = React.ComponentProps<typeof Button> & {
   loading?: boolean;

@@ -16,8 +16,8 @@ import {
   THURSDAY,
   TUESDAY,
   WEDNESDAY,
-} from "@/lib/time";
-import type { Day } from "@/types/availability";
+} from "~/lib/time";
+import type { Day } from "~/types/availability";
 
 const AvailabilityContext = createContext<{
   data: Day[];

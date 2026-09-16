@@ -8,17 +8,17 @@ import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "@/components/loading-button";
-import { Card } from "@/components/ui/card";
+import { LoadingButton } from "~/components/loading-button";
+import { Card } from "~/components/ui/card";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { PasswordInput } from "@/components/ui/password-input";
-import { authClient } from "@/lib/auth-client";
+} from "~/components/ui/field";
+import { Input } from "~/components/ui/input";
+import { PasswordInput } from "~/components/ui/password-input";
+import { authClient } from "~/lib/auth-client";
 
 const schema = z.object({
   identifier: z.string().min(1, { error: "Enter your username or email" }),

@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/server/auth";
+import { auth } from "~/server/auth";
 
 export async function requireUser(callbackUrl?: string) {
   const session = await auth.api.getSession({

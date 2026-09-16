@@ -4,7 +4,6 @@ import { hashPassword } from "better-auth/crypto";
 import "dotenv/config";
 import { createEnv } from "@t3-oss/env-nextjs";
 import * as z from "zod";
-import { type Prisma, PrismaClient } from "~/generated/client";
 import {
   FRIDAY,
   getDayNumber,
@@ -14,6 +13,7 @@ import {
   TUESDAY,
   WEDNESDAY,
 } from "~/lib/time";
+import { type Prisma, PrismaClient } from "../generated/prisma/client";
 
 const env = createEnv({
   server: { DATABASE_URL: z.url(), SEED_USER_PASSWORD: z.string().min(1) },

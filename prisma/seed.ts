@@ -2,7 +2,9 @@ import { randomUUID } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hashPassword } from "better-auth/crypto";
 import "dotenv/config";
-import type { Prisma } from "@/app/generated/prisma/client";
+import { createEnv } from "@t3-oss/env-nextjs";
+import * as z from "zod";
+import { type Prisma, PrismaClient } from "~/generated/client";
 import {
   FRIDAY,
   getDayNumber,
@@ -11,19 +13,20 @@ import {
   THURSDAY,
   TUESDAY,
   WEDNESDAY,
-} from "@/lib/time";
-import { PrismaClient } from "../app/generated/prisma/client";
+} from "~/lib/time";
+
+const env = createEnv({
+  server: { DATABASE_URL: z.url(), SEED_USER_PASSWORD: z.string().min(1) },
+  experimental__runtimeEnv: {},
+});
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: env.DATABASE_URL,
 });
 
 const prisma = new PrismaClient({ adapter });
 
-const PASSWORD = process.env.SEED_USER_PASSWORD;
-if (!PASSWORD) {
-  throw new Error("Missing SEED_USER_PASSWORD environment variable.");
-}
+const PASSWORD = env.SEED_USER_PASSWORD;
 
 type SeedAvailability = Pick<
   Prisma.AvailabilityCreateManyInput,

@@ -4,7 +4,7 @@ import * as Sentry from "@sentry/nextjs";
 import { revalidatePath } from "next/cache";
 import { getDayNumber, minutesSinceMidnight } from "~/lib/time";
 import { requireUser } from "~/server/auth-guard";
-import { prisma } from "~/server/db";
+import { db } from "~/server/db";
 import type { Day } from "~/types/availability";
 
 type SaveAvailabilityResult =
@@ -17,9 +17,9 @@ export async function saveAvailability(
   const user = await requireUser();
 
   try {
-    await prisma.$transaction([
-      prisma.availability.deleteMany({ where: { ownerId: user.id } }),
-      prisma.availability.createMany({
+    await db.$transaction([
+      db.availability.deleteMany({ where: { ownerId: user.id } }),
+      db.availability.createMany({
         data: availabilities
           .filter((availability) => availability.enabled)
           .map((availability) => ({

@@ -19,7 +19,7 @@ import {
 } from "~/app/_components/ui/field";
 import { Input } from "~/app/_components/ui/input";
 import { PasswordInput } from "~/app/_components/ui/password-input";
-import { authClient } from "~/lib/auth-client";
+import { authClient } from "~/server/better-auth/client";
 
 const schema = z.object({
   name: z.string().min(1, { error: "Enter your full name" }),

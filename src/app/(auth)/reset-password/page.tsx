@@ -20,7 +20,7 @@ import {
   FieldLabel,
 } from "~/app/_components/ui/field";
 import { PasswordInput } from "~/app/_components/ui/password-input";
-import { authClient } from "~/lib/auth-client";
+import { authClient } from "~/server/better-auth/client";
 
 const schema = z
   .object({

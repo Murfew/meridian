@@ -4,8 +4,9 @@ import { username } from "better-auth/plugins";
 import { ExistingAccountEmail } from "~/emails/existing-account";
 import { PasswordResetEmail } from "~/emails/password-reset";
 import { VerificationEmail } from "~/emails/verification";
+
 import { env } from "~/env";
-import { prisma } from "~/server/db";
+import { db } from "~/server/db";
 import { sendEmail } from "~/server/email";
 
 const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours
@@ -18,7 +19,7 @@ const APP_HOSTS = [APP_URL, env.VERCEL_URL, env.VERCEL_BRANCH_URL].filter(
 );
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
+  database: prismaAdapter(db, {
     provider: "postgresql",
   }),
   baseURL:
@@ -90,3 +91,5 @@ export const auth = betterAuth({
     },
   },
 });
+
+export type Session = typeof auth.$Infer.Session;

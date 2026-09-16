@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { Toaster } from "~/app/_components/ui/sonner";
-import { TooltipProvider } from "~/app/_components/ui/tooltip";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
+import { Toaster } from "~/app/_components/ui/sonner";
+import { TooltipProvider } from "~/app/_components/ui/tooltip";
+import { TRPCReactProvider } from "~/trpc/react";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,12 +22,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </ThemeProvider>
+        <TRPCReactProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

@@ -1,11 +1,8 @@
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "~/server/auth";
+import { getSession } from "~/server/better-auth/server";
 
 export async function requireUser(callbackUrl?: string) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   if (!session) {
     const query = callbackUrl ? `?${new URLSearchParams({ callbackUrl })}` : "";

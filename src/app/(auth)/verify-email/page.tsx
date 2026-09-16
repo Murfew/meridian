@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { LoadingButton } from "~/app/_components/loading-button";
 import { StatusIconBadge } from "~/app/_components/status-icon-badge";
 import { Card } from "~/app/_components/ui/card";
-import { authClient } from "~/lib/auth-client";
+import { authClient } from "~/server/better-auth/client";
 
 export default function VerifyEmailPage() {
   return (

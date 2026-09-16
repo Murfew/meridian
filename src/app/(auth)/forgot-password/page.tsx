@@ -18,7 +18,7 @@ import {
   FieldLabel,
 } from "~/app/_components/ui/field";
 import { Input } from "~/app/_components/ui/input";
-import { authClient } from "~/lib/auth-client";
+import { authClient } from "~/server/better-auth/client";
 
 const schema = z.object({
   email: z.email({ error: "Invalid email" }),

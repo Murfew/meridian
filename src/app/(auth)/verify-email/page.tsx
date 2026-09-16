@@ -5,9 +5,9 @@ import { MailIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { LoadingButton } from "~/components/loading-button";
-import { StatusIconBadge } from "~/components/status-icon-badge";
-import { Card } from "~/components/ui/card";
+import { LoadingButton } from "~/app/_components/loading-button";
+import { StatusIconBadge } from "~/app/_components/status-icon-badge";
+import { Card } from "~/app/_components/ui/card";
 import { authClient } from "~/lib/auth-client";
 
 export default function VerifyEmailPage() {

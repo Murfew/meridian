@@ -62,7 +62,7 @@
       }
     },
     {
-      "includes": ["src/components/ui/label.tsx"],
+      "includes": ["src/app/_components/ui/label.tsx"],
       "linter": {
         "rules": {
           "a11y": {
@@ -72,7 +72,7 @@
       }
     },
     {
-      "includes": ["src/components/ui/sidebar.tsx"],
+      "includes": ["src/app/_components/ui/sidebar.tsx"],
       "linter": {
         "rules": {
           "suspicious": {

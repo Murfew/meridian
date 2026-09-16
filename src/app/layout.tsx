@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { Toaster } from "~/components/ui/sonner";
-import { TooltipProvider } from "~/components/ui/tooltip";
+import { Toaster } from "~/app/_components/ui/sonner";
+import { TooltipProvider } from "~/app/_components/ui/tooltip";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 

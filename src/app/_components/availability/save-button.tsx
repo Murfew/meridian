@@ -2,8 +2,8 @@
 
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { useAvailability } from "~/components/availability/form";
-import { LoadingButton } from "~/components/loading-button";
+import { useAvailability } from "~/app/_components/availability/form";
+import { LoadingButton } from "~/app/_components/loading-button";
 import { saveAvailability } from "~/server/actions/availability";
 export function AvailabilitySaveButton() {
   const { data } = useAvailability();

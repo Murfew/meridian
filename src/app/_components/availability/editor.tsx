@@ -1,8 +1,8 @@
 "use client";
 
-import { useAvailability } from "~/components/availability/form";
-import { Input } from "~/components/ui/input";
-import { Switch } from "~/components/ui/switch";
+import { useAvailability } from "~/app/_components/availability/form";
+import { Input } from "~/app/_components/ui/input";
+import { Switch } from "~/app/_components/ui/switch";
 
 export function AvailabilityEditor() {
   const { data, setData } = useAvailability();

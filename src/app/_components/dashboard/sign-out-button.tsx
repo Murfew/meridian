@@ -5,8 +5,8 @@ import { LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { SidebarMenuButton } from "~/components/ui/sidebar";
-import { Spinner } from "~/components/ui/spinner";
+import { SidebarMenuButton } from "~/app/_components/ui/sidebar";
+import { Spinner } from "~/app/_components/ui/spinner";
 import { authClient } from "~/lib/auth-client";
 
 export function DashboardSignOut() {

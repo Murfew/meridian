@@ -122,7 +122,7 @@ Corners are soft but tight: inputs and buttons round at `0.625rem`, cards at `0.
 - **Shape:** `0.625rem` radius, `2rem` height at default size.
 - **Primary:** indigo background, near-white text — reserved for the one action a screen wants taken (Sign in, Create account, Reset password).
 - **Outline / Ghost / Link:** neutral border or no border, used for every secondary action (verify-email's resend, all "back to sign in" links) so the primary accent never has to compete with a second colored control on the same screen.
-- **Loading:** a spinner replaces no other content; the button label stays visible beside it, and the button disables for the duration (`LoadingButton` in `components/loading-button.tsx`).
+- **Loading:** a spinner replaces no other content; the button label stays visible beside it, and the button disables for the duration (`LoadingButton` in `app/_components/loading-button.tsx`).
 
 ### Cards
 - **Corner Style:** `0.875rem`.
@@ -133,11 +133,11 @@ Corners are soft but tight: inputs and buttons round at `0.625rem`, cards at `0.
 ### Inputs / Fields
 - **Style:** hairline border, transparent fill, `0.625rem` radius.
 - **Focus:** the border and a 3px ring both shift to the indigo accent.
-- **Error:** the border and ring shift to the destructive red; the message renders directly beneath the field (`components/ui/field.tsx`'s `FieldError`).
-- **Password fields:** a visibility toggle (eye icon) sits inside the field's trailing edge (`components/ui/password-input.tsx`) — the one control that lives inside an input rather than beside it.
+- **Error:** the border and ring shift to the destructive red; the message renders directly beneath the field (`app/_components/ui/field.tsx`'s `FieldError`).
+- **Password fields:** a visibility toggle (eye icon) sits inside the field's trailing edge (`app/_components/ui/password-input.tsx`) — the one control that lives inside an input rather than beside it.
 
 ### Status Icon Badge
-A circular, fully-rounded badge (`components/status-icon-badge.tsx`) pairing a Lucide icon with a tinted background: indigo for an informational state (an email was sent), a muted green for a completed one (password successfully reset). It is the only place in the system a second color appears, and it appears only inside this one component.
+A circular, fully-rounded badge (`app/_components/status-icon-badge.tsx`) pairing a Lucide icon with a tinted background: indigo for an informational state (an email was sent), a muted green for a completed one (password successfully reset). It is the only place in the system a second color appears, and it appears only inside this one component.
 
 ## Do's and Don'ts
 

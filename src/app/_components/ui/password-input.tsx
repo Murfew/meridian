@@ -2,7 +2,7 @@
 
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import * as React from "react";
-import { Input } from "~/components/ui/input";
+import { Input } from "~/app/_components/ui/input";
 import { cn } from "~/lib/utils";
 
 function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {

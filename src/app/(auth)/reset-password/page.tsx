@@ -9,17 +9,17 @@ import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { LoadingButton } from "~/components/loading-button";
-import { StatusIconBadge } from "~/components/status-icon-badge";
-import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
+import { LoadingButton } from "~/app/_components/loading-button";
+import { StatusIconBadge } from "~/app/_components/status-icon-badge";
+import { Button } from "~/app/_components/ui/button";
+import { Card } from "~/app/_components/ui/card";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "~/components/ui/field";
-import { PasswordInput } from "~/components/ui/password-input";
+} from "~/app/_components/ui/field";
+import { PasswordInput } from "~/app/_components/ui/password-input";
 import { authClient } from "~/lib/auth-client";
 
 const schema = z

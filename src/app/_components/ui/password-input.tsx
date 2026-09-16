@@ -11,15 +11,15 @@ function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
   return (
     <div className="relative">
       <Input
-        type={visible ? "text" : "password"}
         className={cn("pr-8", className)}
+        type={visible ? "text" : "password"}
         {...props}
       />
       <button
-        type="button"
-        tabIndex={-1}
-        onClick={() => setVisible((v) => !v)}
         className="absolute inset-y-0 right-0 flex items-center px-2.5 text-muted-foreground hover:text-foreground"
+        onClick={() => setVisible((v) => !v)}
+        tabIndex={-1}
+        type="button"
       >
         {visible ? (
           <EyeOffIcon className="size-4" />

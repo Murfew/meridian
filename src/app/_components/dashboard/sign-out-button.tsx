@@ -31,9 +31,9 @@ export function DashboardSignOut() {
 
   return (
     <SidebarMenuButton
-      tooltip="Sign out"
-      onClick={handleSignOut}
       disabled={loading}
+      onClick={handleSignOut}
+      tooltip="Sign out"
     >
       {loading ? <Spinner /> : <LogOutIcon />}
       <span>Sign out</span>

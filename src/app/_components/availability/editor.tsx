@@ -11,8 +11,8 @@ export function AvailabilityEditor() {
     <ul className="flex flex-col">
       {data.map((day) => (
         <li
-          key={day.label}
           className="flex flex-col gap-2 border-b py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:gap-4"
+          key={day.label}
         >
           <div className="flex w-32 shrink-0 items-center gap-3">
             <Switch
@@ -31,8 +31,8 @@ export function AvailabilityEditor() {
               }
             />
             <label
-              htmlFor={day.label}
               className="text-sm font-medium select-none"
+              htmlFor={day.label}
             >
               {day.label}
             </label>
@@ -41,8 +41,8 @@ export function AvailabilityEditor() {
           {day.enabled ? (
             <div className="flex flex-col items-start gap-1.5 pl-11 sm:flex-1 sm:flex-row sm:items-center sm:gap-2 sm:pl-0">
               <Input
-                type="time"
-                value={day.start}
+                aria-label={`${day.label} start time`}
+                className="w-full sm:w-32"
                 onValueChange={(value) =>
                   setData(
                     data.map((d) => {
@@ -54,13 +54,13 @@ export function AvailabilityEditor() {
                     }),
                   )
                 }
-                aria-label={`${day.label} start time`}
-                className="w-full sm:w-32"
+                type="time"
+                value={day.start}
               />
               <span className="text-sm text-muted-foreground">to</span>
               <Input
-                type="time"
-                value={day.end}
+                aria-label={`${day.label} end time`}
+                className="w-full sm:w-32"
                 onValueChange={(value) =>
                   setData(
                     data.map((d) => {
@@ -72,8 +72,8 @@ export function AvailabilityEditor() {
                     }),
                   )
                 }
-                aria-label={`${day.label} end time`}
-                className="w-full sm:w-32"
+                type="time"
+                value={day.end}
               />
             </div>
           ) : (

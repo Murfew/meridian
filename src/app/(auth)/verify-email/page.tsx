@@ -63,11 +63,11 @@ function VerifyEmailContent() {
           </p>
         </div>
         <LoadingButton
-          variant="outline"
           className="w-full"
-          onClick={handleResend}
-          loading={loading}
           disabled={loading || cooldown > 0}
+          loading={loading}
+          onClick={handleResend}
+          variant="outline"
         >
           {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend email"}
         </LoadingButton>

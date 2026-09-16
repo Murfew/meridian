@@ -11,7 +11,6 @@ export function AvailabilitySaveButton() {
 
   return (
     <LoadingButton
-      type="button"
       loading={isPending}
       onClick={() =>
         startTransition(async () => {
@@ -20,6 +19,7 @@ export function AvailabilitySaveButton() {
           result.ok ? toast.success(result.message) : toast.error(result.error);
         })
       }
+      type="button"
     >
       Save changes
     </LoadingButton>

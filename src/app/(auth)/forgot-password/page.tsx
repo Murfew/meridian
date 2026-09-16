@@ -69,8 +69,8 @@ export default function ForgotPasswordPage() {
             </p>
           </div>
           <Link
-            href="/sign-in"
             className="text-sm text-primary underline-offset-4 hover:underline"
+            href="/sign-in"
           >
             Back to sign in
           </Link>
@@ -96,22 +96,22 @@ export default function ForgotPasswordPage() {
             <Field data-invalid={!!form.formState.errors.email}>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
                 disabled={loading}
+                id="email"
+                placeholder="you@example.com"
+                type="email"
                 {...form.register("email")}
               />
               <FieldError errors={[form.formState.errors.email]} />
             </Field>
 
             <FieldGroup>
-              <LoadingButton type="submit" loading={loading} className="w-full">
+              <LoadingButton className="w-full" loading={loading} type="submit">
                 Send reset link
               </LoadingButton>
               <Link
-                href="/sign-in"
                 className="text-center text-sm text-primary underline-offset-4 hover:underline"
+                href="/sign-in"
               >
                 Back to sign in
               </Link>

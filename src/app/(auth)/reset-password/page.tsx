@@ -84,7 +84,7 @@ function ResetPasswordContent() {
               password.
             </p>
           </div>
-          <Button render={<Link href="/sign-in" />} className="w-full">
+          <Button className="w-full" render={<Link href="/sign-in" />}>
             Sign in
           </Button>
         </Card>
@@ -110,9 +110,9 @@ function ResetPasswordContent() {
               <Field data-invalid={!!form.formState.errors.password}>
                 <FieldLabel htmlFor="password">New Password</FieldLabel>
                 <PasswordInput
+                  disabled={loading}
                   id="password"
                   placeholder="Enter your new password"
-                  disabled={loading}
                   {...form.register("password")}
                 />
                 <FieldError errors={[form.formState.errors.password]} />
@@ -122,9 +122,9 @@ function ResetPasswordContent() {
                   Confirm Password
                 </FieldLabel>
                 <PasswordInput
+                  disabled={loading}
                   id="confirmPassword"
                   placeholder="Re-enter your new password"
-                  disabled={loading}
                   {...form.register("confirmPassword")}
                 />
                 <FieldError errors={[form.formState.errors.confirmPassword]} />
@@ -132,12 +132,12 @@ function ResetPasswordContent() {
             </FieldGroup>
 
             <FieldGroup>
-              <LoadingButton type="submit" loading={loading} className="w-full">
+              <LoadingButton className="w-full" loading={loading} type="submit">
                 Reset password
               </LoadingButton>
               <Link
-                href="/sign-in"
                 className="text-center text-sm text-primary underline-offset-4 hover:underline"
+                href="/sign-in"
               >
                 Back to sign in
               </Link>

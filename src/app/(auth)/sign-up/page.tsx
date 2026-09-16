@@ -99,9 +99,9 @@ export default function SignUpPage() {
                 <Field data-invalid={!!form.formState.errors.name}>
                   <FieldLabel htmlFor="name">Full Name</FieldLabel>
                   <Input
+                    disabled={loading}
                     id="name"
                     placeholder="Jane Doe"
-                    disabled={loading}
                     {...form.register("name")}
                   />
                   <FieldError errors={[form.formState.errors.name]} />
@@ -111,9 +111,9 @@ export default function SignUpPage() {
                     Display Name
                   </FieldLabel>
                   <Input
+                    disabled={loading}
                     id="displayUsername"
                     placeholder="Jane Doe Hair Salon"
-                    disabled={loading}
                     {...form.register("displayUsername")}
                   />
                   <FieldError
@@ -125,9 +125,9 @@ export default function SignUpPage() {
               <Field data-invalid={!!form.formState.errors.username}>
                 <FieldLabel htmlFor="username">Username</FieldLabel>
                 <Input
+                  disabled={loading}
                   id="username"
                   placeholder="janedoe"
-                  disabled={loading}
                   {...form.register("username")}
                 />
                 <FieldError errors={[form.formState.errors.username]} />
@@ -136,10 +136,10 @@ export default function SignUpPage() {
               <Field data-invalid={!!form.formState.errors.email}>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
                   disabled={loading}
+                  id="email"
+                  placeholder="you@example.com"
+                  type="email"
                   {...form.register("email")}
                 />
                 <FieldError errors={[form.formState.errors.email]} />
@@ -148,9 +148,9 @@ export default function SignUpPage() {
               <Field data-invalid={!!form.formState.errors.password}>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
                 <PasswordInput
+                  disabled={loading}
                   id="password"
                   placeholder="Enter your password"
-                  disabled={loading}
                   {...form.register("password")}
                 />
                 <FieldDescription>
@@ -161,14 +161,14 @@ export default function SignUpPage() {
             </FieldGroup>
 
             <FieldGroup>
-              <LoadingButton type="submit" loading={loading} className="w-full">
+              <LoadingButton className="w-full" loading={loading} type="submit">
                 Create account
               </LoadingButton>
               <p className="text-center text-sm">
                 Already have an account?{" "}
                 <Link
-                  href="/sign-in"
                   className="text-primary underline-offset-4 hover:underline"
+                  href="/sign-in"
                 >
                   Sign in
                 </Link>

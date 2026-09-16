@@ -27,9 +27,9 @@ export function DashboardNav() {
       {navItems.map((item) => (
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
+            isActive={item.href === pathname}
             render={<Link href={item.href} />}
             tooltip={item.label}
-            isActive={item.href === pathname}
           >
             <item.icon />
             <span>{item.label}</span>

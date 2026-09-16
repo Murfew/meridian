@@ -1,122 +1,122 @@
 {
-	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"root": true,
-	"vcs": {
-		"enabled": true,
-		"clientKind": "git",
-		"useIgnoreFile": true
-	},
-	"files": {
-		"ignoreUnknown": true,
-		"includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "space"
-	},
-	"html": {
-		"formatter": {
-			"enabled": true
-		}
-	},
-	"javascript": {
-		"assist": {
-			"enabled": true
-		},
-		"formatter": {
-			"enabled": true
-		},
-		"linter": {
-			"enabled": true
-		}
-	},
-	"css": {
-		"assist": {
-			"enabled": true
-		},
-		"formatter": {
-			"enabled": true
-		},
-		"linter": {
-			"enabled": true
-		},
-		"parser": {
-			"cssModules": true,
-			"tailwindDirectives": true
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"style": { "noDefaultExport": "error" }
-		},
-		"domains": {
-			"next": "recommended",
-			"react": "recommended"
-		}
-	},
-	"overrides": [
-		{
-			"includes": [
-				"src/app/**/page.*",
-				"src/app/**/layout.*",
-				"src/app/**/template.*",
-				"src/app/**/loading.*",
-				"src/app/**/error.*",
-				"src/app/**/global-error.*",
-				"src/app/**/not-found.*",
-				"src/app/**/global-not-found.*",
-				"src/app/**/default.*",
-				"src/app/**/forbidden.*",
-				"src/app/**/unauthorized.*",
-				"src/app/**/icon.*",
-				"src/app/**/apple-icon.*",
-				"src/app/**/opengraph-image.*",
-				"src/app/**/twitter-image.*",
-				"src/app/**/sitemap.*",
-				"src/app/**/robots.*",
-				"src/app/**/manifest.*",
-				"*.config.*"
-			],
-			"linter": {
-				"rules": {
-					"style": {
-						"noDefaultExport": "off"
-					}
-				}
-			}
-		},
-		{
-			"includes": ["src/app/_components/ui/label.tsx"],
-			"linter": {
-				"rules": {
-					"a11y": {
-						"noLabelWithoutControl": "off"
-					}
-				}
-			}
-		},
-		{
-			"includes": ["src/app/_components/ui/sidebar.tsx"],
-			"linter": {
-				"rules": {
-					"suspicious": {
-						"noDocumentCookie": "off"
-					}
-				}
-			}
-		}
-	],
-	"assist": {
-		"enabled": true,
-		"actions": {
-			"recommended": true,
-			"source": {
-				"recommended": true,
-				"organizeImports": "on",
-				"useSortedAttributes": "on"
-			}
-		}
-	}
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "root": true,
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "javascript": {
+    "assist": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "css": {
+    "assist": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    },
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": { "noDefaultExport": "error" }
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "src/app/**/page.*",
+        "src/app/**/layout.*",
+        "src/app/**/template.*",
+        "src/app/**/loading.*",
+        "src/app/**/error.*",
+        "src/app/**/global-error.*",
+        "src/app/**/not-found.*",
+        "src/app/**/global-not-found.*",
+        "src/app/**/default.*",
+        "src/app/**/forbidden.*",
+        "src/app/**/unauthorized.*",
+        "src/app/**/icon.*",
+        "src/app/**/apple-icon.*",
+        "src/app/**/opengraph-image.*",
+        "src/app/**/twitter-image.*",
+        "src/app/**/sitemap.*",
+        "src/app/**/robots.*",
+        "src/app/**/manifest.*",
+        "*.config.*"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/app/_components/ui/label.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noLabelWithoutControl": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/app/_components/ui/sidebar.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDocumentCookie": "off"
+          }
+        }
+      }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "recommended": true,
+      "source": {
+        "recommended": true,
+        "organizeImports": "on",
+        "useSortedAttributes": "on"
+      }
+    }
+  }
 }

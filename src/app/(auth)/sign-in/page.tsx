@@ -90,9 +90,9 @@ function SignInContent() {
               <Field data-invalid={!!form.formState.errors.identifier}>
                 <FieldLabel htmlFor="identifier">Username or Email</FieldLabel>
                 <Input
+                  disabled={loading}
                   id="identifier"
                   placeholder="janedoe or you@example.com"
-                  disabled={loading}
                   {...form.register("identifier")}
                 />
                 <FieldError errors={[form.formState.errors.identifier]} />
@@ -102,16 +102,16 @@ function SignInContent() {
                 <div className="flex items-center justify-between">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <Link
-                    href="/forgot-password"
                     className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+                    href="/forgot-password"
                   >
                     Forgot your password?
                   </Link>
                 </div>
                 <PasswordInput
+                  disabled={loading}
                   id="password"
                   placeholder="Enter your password"
-                  disabled={loading}
                   {...form.register("password")}
                 />
                 <FieldError errors={[form.formState.errors.password]} />
@@ -119,14 +119,14 @@ function SignInContent() {
             </FieldGroup>
 
             <FieldGroup>
-              <LoadingButton type="submit" loading={loading} className="w-full">
+              <LoadingButton className="w-full" loading={loading} type="submit">
                 Sign in
               </LoadingButton>
               <p className="text-center text-sm">
                 Don&apos;t have an account?{" "}
                 <Link
-                  href="/sign-up"
                   className="text-primary underline-offset-4 hover:underline"
+                  href="/sign-up"
                 >
                   Sign up
                 </Link>

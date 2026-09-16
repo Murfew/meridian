@@ -5,8 +5,8 @@ import { ExistingAccountEmail } from "~/emails/existing-account";
 import { PasswordResetEmail } from "~/emails/password-reset";
 import { VerificationEmail } from "~/emails/verification";
 import { env } from "~/env";
+import { prisma } from "~/server/db";
 import { sendEmail } from "~/server/email";
-import { prisma } from "~/server/prisma";
 
 const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours
 const RESET_PASSWORD_TOKEN_DURATION = 60 * 60; // 1 hour

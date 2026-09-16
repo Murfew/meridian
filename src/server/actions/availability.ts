@@ -4,7 +4,7 @@ import * as Sentry from "@sentry/nextjs";
 import { revalidatePath } from "next/cache";
 import { getDayNumber, minutesSinceMidnight } from "~/lib/time";
 import { requireUser } from "~/server/auth-guard";
-import { prisma } from "~/server/prisma";
+import { prisma } from "~/server/db";
 import type { Day } from "~/types/availability";
 
 type SaveAvailabilityResult =

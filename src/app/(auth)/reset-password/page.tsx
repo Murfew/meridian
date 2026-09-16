@@ -76,10 +76,10 @@ function ResetPasswordContent() {
         <Card className="w-full max-w-105 items-center gap-6 p-6 text-center">
           <StatusIconBadge icon={<CheckCircle2Icon />} variant="success" />
           <div className="flex flex-col gap-1">
-            <h1 className="font-heading text-2xl font-medium">
+            <h1 className="font-heading font-medium text-2xl">
               Password reset
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Your password has been updated. You can now sign in with your new
               password.
             </p>
@@ -98,10 +98,10 @@ function ResetPasswordContent() {
         <form onSubmit={form.handleSubmit(handleResetPassword)}>
           <FieldGroup>
             <div className="flex flex-col gap-1 text-center">
-              <h1 className="font-heading text-2xl font-medium">
+              <h1 className="font-heading font-medium text-2xl">
                 Set a new password
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Choose a new password for your account.
               </p>
             </div>
@@ -136,7 +136,7 @@ function ResetPasswordContent() {
                 Reset password
               </LoadingButton>
               <Link
-                className="text-center text-sm text-primary underline-offset-4 hover:underline"
+                className="text-center text-primary text-sm underline-offset-4 hover:underline"
                 href="/sign-in"
               >
                 Back to sign in

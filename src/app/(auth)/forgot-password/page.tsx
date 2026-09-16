@@ -61,15 +61,15 @@ export default function ForgotPasswordPage() {
         <Card className="w-full max-w-105 items-center gap-6 p-6 text-center">
           <StatusIconBadge icon={<MailIcon />} />
           <div className="flex flex-col gap-1">
-            <h1 className="font-heading text-2xl font-medium">
+            <h1 className="font-heading font-medium text-2xl">
               Check your email
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               We&apos;ve sent a password reset link to {sentTo}.
             </p>
           </div>
           <Link
-            className="text-sm text-primary underline-offset-4 hover:underline"
+            className="text-primary text-sm underline-offset-4 hover:underline"
             href="/sign-in"
           >
             Back to sign in
@@ -85,10 +85,10 @@ export default function ForgotPasswordPage() {
         <form onSubmit={form.handleSubmit(handleForgotPassword)}>
           <FieldGroup>
             <div className="flex flex-col gap-1 text-center">
-              <h1 className="font-heading text-2xl font-medium">
+              <h1 className="font-heading font-medium text-2xl">
                 Forgot your password?
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Enter your email and we&apos;ll send you a link to reset it.
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
                 Send reset link
               </LoadingButton>
               <Link
-                className="text-center text-sm text-primary underline-offset-4 hover:underline"
+                className="text-center text-primary text-sm underline-offset-4 hover:underline"
                 href="/sign-in"
               >
                 Back to sign in

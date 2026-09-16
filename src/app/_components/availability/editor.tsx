@@ -31,7 +31,7 @@ export function AvailabilityEditor() {
               }
             />
             <label
-              className="text-sm font-medium select-none"
+              className="select-none font-medium text-sm"
               htmlFor={day.label}
             >
               {day.label}
@@ -57,7 +57,7 @@ export function AvailabilityEditor() {
                 type="time"
                 value={day.start}
               />
-              <span className="text-sm text-muted-foreground">to</span>
+              <span className="text-muted-foreground text-sm">to</span>
               <Input
                 aria-label={`${day.label} end time`}
                 className="w-full sm:w-32"
@@ -77,7 +77,7 @@ export function AvailabilityEditor() {
               />
             </div>
           ) : (
-            <span className="pl-11 text-sm text-muted-foreground sm:flex-1 sm:pl-0">
+            <span className="pl-11 text-muted-foreground text-sm sm:flex-1 sm:pl-0">
               Unavailable
             </span>
           )}

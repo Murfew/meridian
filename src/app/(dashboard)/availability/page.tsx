@@ -16,8 +16,8 @@ export default async function AvailabilityPage({
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-medium">Availability</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1 className="font-heading font-medium text-2xl">Availability</h1>
+        <p className="text-muted-foreground text-sm">
           Set the hours you&apos;re open for bookings. Clients can only book
           within these hours, shown in your local timezone.
         </p>
@@ -30,7 +30,7 @@ export default async function AvailabilityPage({
           </CardContent>
 
           <CardFooter className="justify-end gap-2">
-            <p className="mr-auto text-xs text-muted-foreground">
+            <p className="mr-auto text-muted-foreground text-xs">
               Timezone: {user.timezone}
             </p>
             <AvailabilitySaveButton />

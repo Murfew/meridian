@@ -25,7 +25,7 @@ export default async function DashboardLayout({
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <Link
-            className="flex items-center gap-2 rounded-md p-2 font-heading text-sm font-medium"
+            className="flex items-center gap-2 rounded-md p-2 font-heading font-medium text-sm"
             href="/"
           >
             <span className="flex size-4 shrink-0 items-center justify-center">

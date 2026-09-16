@@ -86,10 +86,10 @@ export default function SignUpPage() {
         <form onSubmit={form.handleSubmit(handleSignUp)}>
           <FieldGroup>
             <div className="flex flex-col gap-1 text-center">
-              <h1 className="font-heading text-2xl font-medium">
+              <h1 className="font-heading font-medium text-2xl">
                 Create an account
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Enter your details to get started with Meridian.
               </p>
             </div>

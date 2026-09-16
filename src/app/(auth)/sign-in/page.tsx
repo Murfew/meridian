@@ -78,10 +78,10 @@ function SignInContent() {
         <form onSubmit={form.handleSubmit(handleSignIn)}>
           <FieldGroup>
             <div className="flex flex-col gap-1 text-center">
-              <h1 className="font-heading text-2xl font-medium">
+              <h1 className="font-heading font-medium text-2xl">
                 Welcome back
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Sign in to your Meridian account.
               </p>
             </div>
@@ -102,7 +102,7 @@ function SignInContent() {
                 <div className="flex items-center justify-between">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <Link
-                    className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+                    className="text-muted-foreground text-xs hover:text-foreground hover:underline"
                     href="/forgot-password"
                   >
                     Forgot your password?

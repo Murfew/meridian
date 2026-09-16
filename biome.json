@@ -33,24 +33,24 @@
   "overrides": [
     {
       "includes": [
-        "app/**/page.*",
-        "app/**/layout.*",
-        "app/**/template.*",
-        "app/**/loading.*",
-        "app/**/error.*",
-        "app/**/global-error.*",
-        "app/**/not-found.*",
-        "app/**/global-not-found.*",
-        "app/**/default.*",
-        "app/**/forbidden.*",
-        "app/**/unauthorized.*",
-        "app/**/icon.*",
-        "app/**/apple-icon.*",
-        "app/**/opengraph-image.*",
-        "app/**/twitter-image.*",
-        "app/**/sitemap.*",
-        "app/**/robots.*",
-        "app/**/manifest.*",
+        "src/app/**/page.*",
+        "src/app/**/layout.*",
+        "src/app/**/template.*",
+        "src/app/**/loading.*",
+        "src/app/**/error.*",
+        "src/app/**/global-error.*",
+        "src/app/**/not-found.*",
+        "src/app/**/global-not-found.*",
+        "src/app/**/default.*",
+        "src/app/**/forbidden.*",
+        "src/app/**/unauthorized.*",
+        "src/app/**/icon.*",
+        "src/app/**/apple-icon.*",
+        "src/app/**/opengraph-image.*",
+        "src/app/**/twitter-image.*",
+        "src/app/**/sitemap.*",
+        "src/app/**/robots.*",
+        "src/app/**/manifest.*",
         "*.config.*"
       ],
       "linter": {
@@ -62,7 +62,7 @@
       }
     },
     {
-      "includes": ["components/ui/label.tsx"],
+      "includes": ["src/components/ui/label.tsx"],
       "linter": {
         "rules": {
           "a11y": {
@@ -72,7 +72,7 @@
       }
     },
     {
-      "includes": ["components/ui/sidebar.tsx"],
+      "includes": ["src/components/ui/sidebar.tsx"],
       "linter": {
         "rules": {
           "suspicious": {

@@ -4,7 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import "./globals.css";
+import "@/styles/globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 

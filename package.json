@@ -13,7 +13,7 @@
     "db:dev": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:seed": "prisma db seed",
-    "email:dev": "email dev"
+    "email:dev": "email dev -d ./src/emails"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -23,6 +23,7 @@
     "@react-email/ui": "^6.9.3",
     "@sentry/cli": "^3.7.0",
     "@sentry/nextjs": "^10.73.0",
+    "@t3-oss/env-nextjs": "^0.13.11",
     "better-auth": "^1.6.27",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

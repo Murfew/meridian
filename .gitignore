@@ -41,7 +41,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/app/generated/prisma
-
-# Sentry Config File
-.env.sentry-build-plugin
+/src/generated

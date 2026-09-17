@@ -16,7 +16,13 @@ import {
 } from "@/lib/time";
 
 const env = createEnv({
-  server: { DATABASE_URL: z.url(), SEED_USER_PASSWORD: z.string().min(1) },
+  server: {
+    DATABASE_URL: z.url({
+      protocol: /^postgres(ql)?$/,
+      error: "DATABASE_URL must be a postgres:// or postgresql:// URL",
+    }),
+    SEED_USER_PASSWORD: z.string().min(1),
+  },
   experimental__runtimeEnv: {},
 });
 

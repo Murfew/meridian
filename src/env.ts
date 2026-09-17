@@ -6,7 +6,7 @@ const vercelSystemVariables = vercel();
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.url({
+    STORAGE_DATABASE_URL: z.url({
       protocol: /^postgres(ql)?$/,
       error: "DATABASE_URL must be a postgres:// or postgresql:// URL",
     }),

@@ -1,6 +1,7 @@
 import { betterAuth, getOrigin } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { username } from "better-auth/plugins";
+import { after } from "next/server";
 import { ExistingAccountEmail } from "@/emails/existing-account";
 import { PasswordResetEmail } from "@/emails/password-reset";
 import { VerificationEmail } from "@/emails/verification";
@@ -21,6 +22,11 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+  advanced: {
+    backgroundTasks: {
+      handler: after,
+    },
+  },
   baseURL:
     env.NODE_ENV === "production"
       ? {
@@ -38,7 +44,7 @@ export const auth = betterAuth({
     revokeSessionsOnPasswordReset: true,
 
     sendResetPassword: async ({ user, url }) => {
-      void sendEmail({
+      await sendEmail({
         to: user.email,
         subject: "Reset your password",
         react: PasswordResetEmail({ resetUrl: url }),
@@ -49,7 +55,7 @@ export const auth = betterAuth({
       const origin =
         (request ? getOrigin(request.url) : null) ?? `https://${APP_URL}`;
 
-      void sendEmail({
+      await sendEmail({
         to: user.email,
         subject: "You already have an account",
         react: ExistingAccountEmail({
@@ -65,7 +71,7 @@ export const auth = betterAuth({
     expiresIn: EMAIL_VERIFICATION_TOKEN_DURATION,
 
     sendVerificationEmail: async ({ user, url }) => {
-      void sendEmail({
+      await sendEmail({
         to: user.email,
         subject: "Verify your email address",
         react: VerificationEmail({ verificationUrl: url }),

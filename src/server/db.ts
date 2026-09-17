@@ -7,7 +7,7 @@ const globalForPrisma = global as unknown as {
 };
 
 const adapter = new PrismaPg({
-  connectionString: env.DATABASE_URL,
+  connectionString: env.STORAGE_DATABASE_URL,
 });
 
 export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });

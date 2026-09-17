@@ -16,12 +16,18 @@ import {
 } from "@/lib/time";
 
 const env = createEnv({
-  server: { DATABASE_URL: z.url(), SEED_USER_PASSWORD: z.string().min(1) },
+  server: {
+    STORAGE_DATABASE_URL: z.url({
+      protocol: /^postgres(ql)?$/,
+      error: "DATABASE_URL must be a postgres:// or postgresql:// URL",
+    }),
+    SEED_USER_PASSWORD: z.string().min(1),
+  },
   experimental__runtimeEnv: {},
 });
 
 const adapter = new PrismaPg({
-  connectionString: env.DATABASE_URL,
+  connectionString: env.STORAGE_DATABASE_URL,
 });
 
 const prisma = new PrismaClient({ adapter });

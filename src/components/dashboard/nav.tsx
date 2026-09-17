@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "~/components/ui/sidebar";
+} from "@/components/ui/sidebar";
 
 const navItems = [
   { href: "/availability", label: "Availability", icon: CalendarClockIcon },

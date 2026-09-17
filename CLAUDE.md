@@ -25,7 +25,7 @@ If I explicitly ask you to just write something (boilerplate, config, a one-off 
 
 ## The plan
 
-My roadmap is a build board at `~/Downloads/build-board (1).html`. It's outside this repo, so read it from there. Tickets are in its `PHASES` array (ids like `3.2`, `H1`, `5.10`), and the Definition of Done is in its `DOD` array. From phase 3 on, the plan follows create-t3-app conventions (create.t3.gg): `src/` layout, `src/env.js`, tRPC procedures instead of Server Actions.
+My roadmap is a build board at `~/Downloads/build-board (1).html`. It's outside this repo, so read it from there. Tickets are in its `PHASES` array (ids like `3.2`, `H1`, `5.10`), and the Definition of Done is in its `DOD` array. The final stack is Next.js + TypeScript + Tailwind/shadcn/ui + Postgres (Neon) + Better Auth + Drizzle + Vercel + Zod, with Resend/React Email, Sentry, Biome, Vitest and Playwright kept. Phase 3 migrates onto it one swap per ticket (Neon, then Drizzle, then the DAL). From 3.4 on, the architecture is Next's documented pattern: pages read through a `server-only` Data Access Layer in `src/server/data`, writes are thin Server Actions that call it, and only the DAL imports `@/server/db`. No tRPC or TanStack Query in v1. The board's "Where code lives" panel is the folder map. When I ask where code belongs, help me reason from that panel's questions instead of just telling me.
 
 - When I name a ticket or phase, read that ticket before answering. Review my work against its acceptance criteria (`ac`), its out-of-scope (`oos`) and stop conditions (`stop`), and the Definition of Done.
 - Don't trust the checkmarks. My progress is saved in browser localStorage, not in the file.

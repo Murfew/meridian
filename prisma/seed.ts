@@ -17,7 +17,7 @@ import {
 
 const env = createEnv({
   server: {
-    DATABASE_URL: z.url({
+    STORAGE_DATABASE_URL: z.url({
       protocol: /^postgres(ql)?$/,
       error: "DATABASE_URL must be a postgres:// or postgresql:// URL",
     }),
@@ -27,7 +27,7 @@ const env = createEnv({
 });
 
 const adapter = new PrismaPg({
-  connectionString: env.DATABASE_URL,
+  connectionString: env.STORAGE_DATABASE_URL,
 });
 
 const prisma = new PrismaClient({ adapter });

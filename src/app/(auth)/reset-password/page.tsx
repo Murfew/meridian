@@ -84,7 +84,11 @@ function ResetPasswordContent() {
               password.
             </p>
           </div>
-          <Button render={<Link href="/sign-in" />} className="w-full">
+          <Button
+            render={<Link href="/sign-in" />}
+            className="w-full"
+            nativeButton={false}
+          >
             Sign in
           </Button>
         </Card>

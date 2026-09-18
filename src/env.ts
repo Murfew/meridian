@@ -28,6 +28,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    SEED_USER_PASSWORD: z.string().min(1),
   },
   experimental__runtimeEnv: {},
   extends: [vercelSystemVariables],

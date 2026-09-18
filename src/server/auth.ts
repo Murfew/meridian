@@ -7,7 +7,7 @@ import { PasswordResetEmail } from "@/emails/password-reset";
 import { VerificationEmail } from "@/emails/verification";
 import { env } from "@/env";
 import { db } from "@/server/db";
-import { schema } from "@/server/db/schema";
+import * as schema from "@/server/db/schema";
 import { sendEmail } from "@/server/email";
 
 const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours

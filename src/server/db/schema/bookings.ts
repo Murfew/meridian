@@ -1,5 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
-import { snakeCase, text, timestamp, unique } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { check, snakeCase, text, timestamp, unique } from "drizzle-orm/pg-core";
 import { users } from "@/server/db/schema/auth";
 
 export const bookings = snakeCase.table(
@@ -19,5 +20,11 @@ export const bookings = snakeCase.table(
     idempotencyKey: text().unique(),
     createdAt: timestamp().defaultNow().notNull(),
   },
-  (table) => [unique().on(table.ownerId, table.slotStartUtc)],
+  (table) => [
+    unique().on(table.ownerId, table.slotStartUtc),
+    check(
+      "slot_start_utc_before_slot_end_utc",
+      sql`${table.slotStartUtc} < ${table.slotEndUtc}`,
+    ),
+  ],
 );

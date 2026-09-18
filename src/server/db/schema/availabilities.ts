@@ -1,5 +1,7 @@
 import { createId } from "@paralleldrive/cuid2";
+import { sql } from "drizzle-orm";
 import {
+  check,
   integer,
   snakeCase,
   text,
@@ -26,5 +28,12 @@ export const availabilities = snakeCase.table(
       .notNull()
       .$onUpdate(() => new Date()),
   },
-  (table) => [unique().on(table.ownerId, table.dayOfWeek)],
+  (table) => [
+    unique().on(table.ownerId, table.dayOfWeek),
+    check("valid_day_of_week", sql`${table.dayOfWeek} BETWEEN 0 AND 6`),
+    check(
+      "start_minute_before_end_minute",
+      sql`${table.startMinute} < ${table.endMinute}`,
+    ),
+  ],
 );

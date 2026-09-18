@@ -1,12 +1,13 @@
+import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { betterAuth, getOrigin } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
 import { username } from "better-auth/plugins";
 import { after } from "next/server";
 import { ExistingAccountEmail } from "@/emails/existing-account";
 import { PasswordResetEmail } from "@/emails/password-reset";
 import { VerificationEmail } from "@/emails/verification";
 import { env } from "@/env";
-import { prisma } from "@/server/db";
+import { db } from "@/server/db";
+import * as schema from "@/server/db/schema";
 import { sendEmail } from "@/server/email";
 
 const EMAIL_VERIFICATION_TOKEN_DURATION = 60 * 60 * 24; // 24 hours
@@ -19,12 +20,17 @@ const APP_HOSTS = [APP_URL, env.VERCEL_URL, env.VERCEL_BRANCH_URL].filter(
 );
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "postgresql",
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    usePlural: true,
+    schema,
   }),
   advanced: {
     backgroundTasks: {
       handler: after,
+    },
+    database: {
+      joins: true,
     },
   },
   baseURL:

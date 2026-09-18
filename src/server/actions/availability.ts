@@ -1,10 +1,12 @@
 "use server";
 
 import * as Sentry from "@sentry/nextjs";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getDayNumber, minutesSinceMidnight } from "@/lib/time";
 import { requireUser } from "@/server/auth-guard";
-import { prisma } from "@/server/db";
+import { db } from "@/server/db";
+import { availabilities } from "@/server/db/schema";
 import type { Day } from "@/types/availability";
 
 type SaveAvailabilityResult =
@@ -12,15 +14,18 @@ type SaveAvailabilityResult =
   | { ok: false; error: string };
 
 export async function saveAvailability(
-  availabilities: Day[],
+  data: Day[],
 ): Promise<SaveAvailabilityResult> {
   const user = await requireUser();
 
   try {
-    await prisma.$transaction([
-      prisma.availability.deleteMany({ where: { ownerId: user.id } }),
-      prisma.availability.createMany({
-        data: availabilities
+    await db.transaction(async (tx) => {
+      await tx
+        .delete(availabilities)
+        .where(eq(availabilities.ownerId, user.id));
+
+      await tx.insert(availabilities).values(
+        data
           .filter((availability) => availability.enabled)
           .map((availability) => ({
             ownerId: user.id,
@@ -34,8 +39,8 @@ export async function saveAvailability(
               Number(availability.end.slice(3)),
             ),
           })),
-      }),
-    ]);
+      );
+    });
   } catch (error) {
     Sentry.captureException(error);
     return {

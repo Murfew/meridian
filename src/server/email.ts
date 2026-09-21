@@ -1,3 +1,5 @@
+import "server-only";
+
 import type { ReactElement } from "react";
 import { Resend } from "resend";
 import { env } from "@/env";
@@ -21,7 +23,6 @@ export async function sendEmail({
   });
 
   if (error) {
-    console.error("Resend error:", error);
-    throw new Error("Failed to send email");
+    throw new Error("Failed to send email", { cause: error });
   }
 }

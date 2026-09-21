@@ -18,12 +18,21 @@ export const DAYS = [
   SATURDAY,
 ];
 
-export function getDayNumber(day: string) {
-  return DAYS.indexOf(day);
+export function getDayNumber(dayName: string) {
+  return DAYS.indexOf(dayName);
+}
+
+export function getDayName(dayNumber: number) {
+  return DAYS.at(dayNumber);
 }
 
 export function toMinutes(time: Time) {
   return time.hours * 60 + time.minutes;
+}
+
+export function fromMinutes(minutes: number): Time {
+  const hours = minutes / 60;
+  return { hours, minutes: minutes - hours * 60 };
 }
 
 export function parseTime(time: string): Time {
@@ -31,4 +40,8 @@ export function parseTime(time: string): Time {
   const minutes = Number(time.slice(3));
 
   return { hours, minutes };
+}
+
+export function formatTime(time: Time): string {
+  return `${time.hours.toString().padStart(2, "0")}:${time.minutes.toString().padStart(2, "0")}`;
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { DashboardNav } from "@/components/dashboard/nav";
-import { DashboardSignOut } from "@/components/dashboard/sign-out-button";
+import { DashboardNav } from "@/app/(dashboard)/_components/nav";
+import { DashboardSignOut } from "@/app/(dashboard)/_components/sign-out-button";
 import {
   Sidebar,
   SidebarContent,

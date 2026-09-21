@@ -1,5 +1,5 @@
 import { stringifyQueryParams } from "@/lib/query-params";
-import { requireUser } from "@/server/auth-guard";
+import { requireUser } from "@/server/auth/session";
 
 export default async function BookingsPage({
   searchParams,

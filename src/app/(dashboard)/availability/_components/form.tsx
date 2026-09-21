@@ -17,25 +17,25 @@ import {
   TUESDAY,
   WEDNESDAY,
 } from "@/lib/time";
-import type { Day } from "@/types/availability";
+import type { DaysInput } from "@/lib/validation/availability";
 
 const AvailabilityContext = createContext<{
-  data: Day[];
-  setData: Dispatch<SetStateAction<Day[]>>;
+  data: DaysInput;
+  setData: Dispatch<SetStateAction<DaysInput>>;
 } | null>(null);
 
 const days = [
-  { label: MONDAY, enabled: true, start: "09:00", end: "17:00" },
-  { label: TUESDAY, enabled: true, start: "09:00", end: "17:00" },
-  { label: WEDNESDAY, enabled: true, start: "09:00", end: "17:00" },
-  { label: THURSDAY, enabled: true, start: "09:00", end: "17:00" },
-  { label: FRIDAY, enabled: true, start: "09:00", end: "17:00" },
-  { label: SATURDAY, enabled: false, start: "09:00", end: "17:00" },
-  { label: SUNDAY, enabled: false, start: "09:00", end: "17:00" },
+  { label: MONDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
+  { label: TUESDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
+  { label: WEDNESDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
+  { label: THURSDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
+  { label: FRIDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
+  { label: SATURDAY, enabled: false, startTime: "09:00", endTime: "17:00" },
+  { label: SUNDAY, enabled: false, startTime: "09:00", endTime: "17:00" },
 ];
 
 export function AvailabilityForm({ children }: { children: ReactNode }) {
-  const [data, setData] = useState(days);
+  const [data, setData] = useState<DaysInput>(days);
   return (
     <AvailabilityContext value={{ data, setData }}>
       {children}

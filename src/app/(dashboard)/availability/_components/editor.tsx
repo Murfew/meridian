@@ -3,14 +3,12 @@
 import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import type { Day } from "@/lib/validation/availability";
 
 export function AvailabilityEditor() {
   const { days, setDays } = useAvailability();
 
-  function updateDay(
-    dayName: string,
-    changes: Record<string, boolean | string>,
-  ) {
+  function updateDay(dayName: string, changes: Partial<Day>) {
     setDays(
       days.map((day) => {
         if (day.dayName === dayName) {

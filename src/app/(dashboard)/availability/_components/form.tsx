@@ -24,7 +24,7 @@ const AvailabilityContext = createContext<{
   setDays: Dispatch<SetStateAction<Day[]>>;
 } | null>(null);
 
-const initial = [
+const initial: Day[] = [
   { dayName: MONDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
   { dayName: TUESDAY, enabled: true, startTime: "09:00", endTime: "17:00" },
   { dayName: WEDNESDAY, enabled: true, startTime: "09:00", endTime: "17:00" },

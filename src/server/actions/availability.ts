@@ -2,13 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import type { ActionResult } from "@/lib/action-result";
-import { type DaysInput, daysSchema } from "@/lib/validation/availability";
+import { type Day, weekSchema } from "@/lib/validation/availability";
 import { saveAvailability } from "@/server/data/availability";
 
 export async function saveAvailabilityAction(
-  days: DaysInput,
+  days: Day[],
 ): Promise<ActionResult<void>> {
-  const result = daysSchema.safeParse(days);
+  const result = weekSchema.safeParse(days);
   if (!result.success) {
     return {
       ok: false,

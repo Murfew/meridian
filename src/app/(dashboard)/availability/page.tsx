@@ -1,5 +1,5 @@
 import { AvailabilityEditor } from "@/app/(dashboard)/availability/_components/editor";
-import { AvailabilityForm } from "@/app/(dashboard)/availability/_components/form";
+import { AvailabilityProvider } from "@/app/(dashboard)/availability/_components/form";
 import { AvailabilitySaveButton } from "@/app/(dashboard)/availability/_components/save-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { stringifyQueryParams } from "@/lib/query-params";
@@ -23,7 +23,7 @@ export default async function AvailabilityPage({
         </p>
       </div>
 
-      <AvailabilityForm>
+      <AvailabilityProvider>
         <Card>
           <CardContent>
             <AvailabilityEditor />
@@ -36,7 +36,7 @@ export default async function AvailabilityPage({
             <AvailabilitySaveButton />
           </CardFooter>
         </Card>
-      </AvailabilityForm>
+      </AvailabilityProvider>
     </div>
   );
 }

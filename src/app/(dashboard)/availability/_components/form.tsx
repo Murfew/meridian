@@ -34,7 +34,7 @@ const days = [
   { label: SUNDAY, enabled: false, startTime: "09:00", endTime: "17:00" },
 ];
 
-export function AvailabilityForm({ children }: { children: ReactNode }) {
+export function AvailabilityProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<DaysInput>(days);
   return (
     <AvailabilityContext value={{ data, setData }}>

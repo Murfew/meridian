@@ -23,7 +23,20 @@
     "enabled": true,
     "rules": {
       "preset": "recommended",
-      "style": { "noDefaultExport": "error" }
+      "style": {
+        "noDefaultExport": "error",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["@/server/db", "@/server/db/**", "**/server/db/**"],
+                "message": "Only the data layer may import the db client."
+              }
+            ]
+          }
+        }
+      }
     },
     "domains": {
       "next": "recommended",
@@ -79,6 +92,16 @@
             "noDocumentCookie": "off"
           }
         }
+      }
+    },
+    {
+      "includes": [
+        "src/server/data/**",
+        "src/server/db/**",
+        "src/server/auth/config.ts"
+      ],
+      "linter": {
+        "rules": { "style": { "noRestrictedImports": "off" } }
       }
     }
   ],

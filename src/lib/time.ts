@@ -16,14 +16,17 @@ export const DAYS = [
   THURSDAY,
   FRIDAY,
   SATURDAY,
-];
+] as const;
 
-export function getDayNumber(dayName: string) {
-  return DAYS.indexOf(dayName);
+export type DayName = (typeof DAYS)[number];
+export type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+export function getDayNumber(dayName: DayName): DayNumber {
+  return DAYS.indexOf(dayName) as DayNumber;
 }
 
-export function getDayName(dayNumber: number) {
-  return DAYS.at(dayNumber);
+export function getDayName(dayNumber: DayNumber): DayName {
+  return DAYS[dayNumber];
 }
 
 export function toMinutes(time: Time) {
@@ -31,7 +34,7 @@ export function toMinutes(time: Time) {
 }
 
 export function fromMinutes(minutes: number): Time {
-  const hours = minutes / 60;
+  const hours = Math.trunc(minutes / 60);
   return { hours, minutes: minutes - hours * 60 };
 }
 

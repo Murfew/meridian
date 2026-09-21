@@ -1,6 +1,6 @@
 "use client";
 
-import { useAvailability } from "@/components/availability/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 
@@ -42,7 +42,7 @@ export function AvailabilityEditor() {
             <div className="flex flex-col items-start gap-1.5 pl-11 sm:flex-1 sm:flex-row sm:items-center sm:gap-2 sm:pl-0">
               <Input
                 type="time"
-                value={day.start}
+                value={day.startTime}
                 onValueChange={(value) =>
                   setData(
                     data.map((d) => {
@@ -60,7 +60,7 @@ export function AvailabilityEditor() {
               <span className="text-sm text-muted-foreground">to</span>
               <Input
                 type="time"
-                value={day.end}
+                value={day.endTime}
                 onValueChange={(value) =>
                   setData(
                     data.map((d) => {

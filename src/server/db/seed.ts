@@ -7,9 +7,9 @@ import {
   FRIDAY,
   getDayNumber,
   MONDAY,
-  minutesSinceMidnight,
   THURSDAY,
   TUESDAY,
+  toMinutes,
   WEDNESDAY,
 } from "@/lib/time";
 import { accounts, availabilities, users } from "@/server/db/schema";
@@ -32,24 +32,24 @@ const seedUsers: SeedUser[] = [
     availabilities: [
       {
         dayOfWeek: getDayNumber(MONDAY),
-        startMinute: minutesSinceMidnight(9),
-        endMinute: minutesSinceMidnight(12),
+        startMinute: toMinutes({ hours: 9, minutes: 0 }),
+        endMinute: toMinutes({ hours: 12, minutes: 0 }),
       },
       {
         dayOfWeek: getDayNumber(TUESDAY),
-        startMinute: minutesSinceMidnight(9),
-        endMinute: minutesSinceMidnight(17),
+        startMinute: toMinutes({ hours: 9, minutes: 0 }),
+        endMinute: toMinutes({ hours: 17, minutes: 0 }),
       },
 
       {
         dayOfWeek: getDayNumber(WEDNESDAY),
-        startMinute: minutesSinceMidnight(13),
-        endMinute: minutesSinceMidnight(17),
+        startMinute: toMinutes({ hours: 13, minutes: 0 }),
+        endMinute: toMinutes({ hours: 17, minutes: 0 }),
       },
       {
         dayOfWeek: getDayNumber(THURSDAY),
-        startMinute: minutesSinceMidnight(9),
-        endMinute: minutesSinceMidnight(12),
+        startMinute: toMinutes({ hours: 9, minutes: 0 }),
+        endMinute: toMinutes({ hours: 12, minutes: 0 }),
       },
     ],
   },
@@ -65,13 +65,13 @@ const seedUsers: SeedUser[] = [
     availabilities: [
       {
         dayOfWeek: getDayNumber(WEDNESDAY),
-        startMinute: minutesSinceMidnight(10),
-        endMinute: minutesSinceMidnight(16),
+        startMinute: toMinutes({ hours: 10, minutes: 0 }),
+        endMinute: toMinutes({ hours: 16, minutes: 0 }),
       },
       {
         dayOfWeek: getDayNumber(FRIDAY),
-        startMinute: minutesSinceMidnight(10),
-        endMinute: minutesSinceMidnight(16),
+        startMinute: toMinutes({ hours: 10, minutes: 0 }),
+        endMinute: toMinutes({ hours: 16, minutes: 0 }),
       },
     ],
   },

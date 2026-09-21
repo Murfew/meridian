@@ -6,6 +6,8 @@ export const THURSDAY = "Thursday";
 export const FRIDAY = "Friday";
 export const SATURDAY = "Saturday";
 
+export type Time = { hours: number; minutes: number };
+
 export const DAYS = [
   SUNDAY,
   MONDAY,
@@ -20,6 +22,13 @@ export function getDayNumber(day: string) {
   return DAYS.indexOf(day);
 }
 
-export function minutesSinceMidnight(hour: number, minute = 0) {
-  return hour * 60 + minute;
+export function toMinutes(time: Time) {
+  return time.hours * 60 + time.minutes;
+}
+
+export function parseTime(time: string): Time {
+  const hours = Number(time.slice(0, 2));
+  const minutes = Number(time.slice(3));
+
+  return { hours, minutes };
 }

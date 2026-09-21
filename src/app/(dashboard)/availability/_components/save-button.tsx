@@ -2,9 +2,9 @@
 
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { useAvailability } from "@/components/availability/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
 import { LoadingButton } from "@/components/loading-button";
-import { saveAvailability } from "@/server/actions/availability";
+import { saveAvailabilityAction } from "@/server/actions/availability";
 export function AvailabilitySaveButton() {
   const { data } = useAvailability();
   const [isPending, startTransition] = useTransition();
@@ -15,9 +15,13 @@ export function AvailabilitySaveButton() {
       loading={isPending}
       onClick={() =>
         startTransition(async () => {
-          const result = await saveAvailability(data);
+          const result = await saveAvailabilityAction(data);
 
-          result.ok ? toast.success(result.message) : toast.error(result.error);
+          if (result.ok) {
+            toast.success("Availability saved successfully!");
+          } else {
+            toast.error(result.error);
+          }
         })
       }
     >

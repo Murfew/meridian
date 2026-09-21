@@ -1,9 +1,9 @@
-import { AvailabilityEditor } from "@/components/availability/editor";
-import { AvailabilityForm } from "@/components/availability/form";
-import { AvailabilitySaveButton } from "@/components/availability/save-button";
+import { AvailabilityEditor } from "@/app/(dashboard)/availability/_components/editor";
+import { AvailabilityForm } from "@/app/(dashboard)/availability/_components/form";
+import { AvailabilitySaveButton } from "@/app/(dashboard)/availability/_components/save-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { stringifyQueryParams } from "@/lib/query-params";
-import { requireUser } from "@/server/auth-guard";
+import { requireUser } from "@/server/auth/session";
 
 export default async function AvailabilityPage({
   searchParams,

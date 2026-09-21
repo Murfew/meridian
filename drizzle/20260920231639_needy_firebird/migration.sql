@@ -1,0 +1,2 @@
+ALTER TABLE "availabilities" ADD CONSTRAINT "valid_start_minute" CHECK ("start_minute" >= 0 AND "start_minute" < 1440);--> statement-breakpoint
+ALTER TABLE "availabilities" ADD CONSTRAINT "valid_end_minute" CHECK ("end_minute" >= 0 AND "end_minute" < 1440);

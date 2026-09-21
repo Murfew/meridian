@@ -35,5 +35,13 @@ export const availabilities = snakeCase.table(
       "start_minute_before_end_minute",
       sql`${table.startMinute} < ${table.endMinute}`,
     ),
+    check(
+      "valid_start_minute",
+      sql`${table.startMinute} >= 0 AND ${table.startMinute} < 1440`,
+    ),
+    check(
+      "valid_end_minute",
+      sql`${table.endMinute} >= 0 AND ${table.endMinute} < 1440`,
+    ),
   ],
 );

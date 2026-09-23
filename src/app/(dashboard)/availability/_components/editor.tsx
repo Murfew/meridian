@@ -1,6 +1,6 @@
 "use client";
 
-import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/context";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import type { Day } from "@/lib/validation/availability";

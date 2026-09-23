@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/context";
 import { LoadingButton } from "@/components/loading-button";
 import { saveAvailabilityAction } from "@/server/actions/availability";
 export function AvailabilitySaveButton() {

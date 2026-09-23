@@ -1,9 +1,10 @@
+import { AvailabilityProvider } from "@/app/(dashboard)/availability/_components/context";
 import { AvailabilityEditor } from "@/app/(dashboard)/availability/_components/editor";
-import { AvailabilityProvider } from "@/app/(dashboard)/availability/_components/form";
 import { AvailabilitySaveButton } from "@/app/(dashboard)/availability/_components/save-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { stringifyQueryParams } from "@/lib/query-params";
 import { requireUser } from "@/server/auth/session";
+import { getAvailability } from "@/server/data/availability";
 
 export default async function AvailabilityPage({
   searchParams,
@@ -12,6 +13,8 @@ export default async function AvailabilityPage({
   const user = await requireUser(
     query ? `/availability?${query}` : "/availability",
   );
+
+  const availability = await getAvailability();
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
@@ -23,7 +26,7 @@ export default async function AvailabilityPage({
         </p>
       </div>
 
-      <AvailabilityProvider>
+      <AvailabilityProvider availability={availability}>
         <Card>
           <CardContent>
             <AvailabilityEditor />

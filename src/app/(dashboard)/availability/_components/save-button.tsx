@@ -2,11 +2,11 @@
 
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/context";
 import { LoadingButton } from "@/components/loading-button";
 import { saveAvailabilityAction } from "@/server/actions/availability";
 export function AvailabilitySaveButton() {
-  const { data } = useAvailability();
+  const { days } = useAvailability();
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -15,7 +15,7 @@ export function AvailabilitySaveButton() {
       loading={isPending}
       onClick={() =>
         startTransition(async () => {
-          const result = await saveAvailabilityAction(data);
+          const result = await saveAvailabilityAction(days);
 
           if (result.ok) {
             toast.success("Availability saved successfully!");

@@ -1,40 +1,45 @@
 "use client";
 
-import { useAvailability } from "@/app/(dashboard)/availability/_components/form";
+import { useAvailability } from "@/app/(dashboard)/availability/_components/context";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import type { Day } from "@/lib/validation/availability";
 
 export function AvailabilityEditor() {
-  const { data, setData } = useAvailability();
+  const { days, setDays } = useAvailability();
+
+  function updateDay(dayName: string, changes: Partial<Day>) {
+    setDays(
+      days.map((day) => {
+        if (day.dayName === dayName) {
+          return { ...day, ...changes };
+        } else {
+          return day;
+        }
+      }),
+    );
+  }
 
   return (
     <ul className="flex flex-col">
-      {data.map((day) => (
+      {days.map((day) => (
         <li
-          key={day.label}
+          key={day.dayName}
           className="flex flex-col gap-2 border-b py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:gap-4"
         >
           <div className="flex w-32 shrink-0 items-center gap-3">
             <Switch
               checked={day.enabled}
-              id={day.label}
+              id={day.dayName}
               onCheckedChange={(checked) =>
-                setData(
-                  data.map((d) => {
-                    if (d.label === day.label) {
-                      return { ...d, enabled: checked };
-                    } else {
-                      return d;
-                    }
-                  }),
-                )
+                updateDay(day.dayName, { enabled: checked })
               }
             />
             <label
-              htmlFor={day.label}
+              htmlFor={day.dayName}
               className="text-sm font-medium select-none"
             >
-              {day.label}
+              {day.dayName}
             </label>
           </div>
 
@@ -44,17 +49,9 @@ export function AvailabilityEditor() {
                 type="time"
                 value={day.startTime}
                 onValueChange={(value) =>
-                  setData(
-                    data.map((d) => {
-                      if (d.label === day.label) {
-                        return { ...d, start: value };
-                      } else {
-                        return d;
-                      }
-                    }),
-                  )
+                  updateDay(day.dayName, { startTime: value })
                 }
-                aria-label={`${day.label} start time`}
+                aria-label={`${day.dayName} start time`}
                 className="w-full sm:w-32"
               />
               <span className="text-sm text-muted-foreground">to</span>
@@ -62,17 +59,9 @@ export function AvailabilityEditor() {
                 type="time"
                 value={day.endTime}
                 onValueChange={(value) =>
-                  setData(
-                    data.map((d) => {
-                      if (d.label === day.label) {
-                        return { ...d, end: value };
-                      } else {
-                        return d;
-                      }
-                    }),
-                  )
+                  updateDay(day.dayName, { endTime: value })
                 }
-                aria-label={`${day.label} end time`}
+                aria-label={`${day.dayName} end time`}
                 className="w-full sm:w-32"
               />
             </div>

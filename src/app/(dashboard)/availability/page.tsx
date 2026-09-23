@@ -1,17 +1,18 @@
+import { AvailabilityProvider } from "@/app/(dashboard)/availability/_components/context";
 import { AvailabilityEditor } from "@/app/(dashboard)/availability/_components/editor";
-import { AvailabilityForm } from "@/app/(dashboard)/availability/_components/form";
 import { AvailabilitySaveButton } from "@/app/(dashboard)/availability/_components/save-button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { stringifyQueryParams } from "@/lib/query-params";
-import { requireUser } from "@/server/auth/session";
+import { getAvailability } from "@/server/data/availability";
+import { getCurrentUserSettings } from "@/server/data/user";
 
-export default async function AvailabilityPage({
-  searchParams,
-}: PageProps<"/availability">) {
-  const query = stringifyQueryParams(await searchParams);
-  const user = await requireUser(
-    query ? `/availability?${query}` : "/availability",
-  );
+export default async function AvailabilityPage() {
+  const availabilityData = getAvailability();
+  const userSettingsData = getCurrentUserSettings();
+
+  const [availability, userSettings] = await Promise.all([
+    availabilityData,
+    userSettingsData,
+  ]);
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
@@ -23,7 +24,7 @@ export default async function AvailabilityPage({
         </p>
       </div>
 
-      <AvailabilityForm>
+      <AvailabilityProvider availability={availability}>
         <Card>
           <CardContent>
             <AvailabilityEditor />
@@ -31,12 +32,12 @@ export default async function AvailabilityPage({
 
           <CardFooter className="justify-end gap-2">
             <p className="mr-auto text-xs text-muted-foreground">
-              Timezone: {user.timezone}
+              Timezone: {userSettings.timezone}
             </p>
             <AvailabilitySaveButton />
           </CardFooter>
         </Card>
-      </AvailabilityForm>
+      </AvailabilityProvider>
     </div>
   );
 }

@@ -36,9 +36,9 @@ export function AvailabilityProvider({
 }
 
 export function useAvailability() {
-  const availabilityPromise = useContext(AvailabilityContext);
-  if (!availabilityPromise) {
-    throw new Error("useAvailability must be used within AvailabilityForm");
+  const context = useContext(AvailabilityContext);
+  if (!context) {
+    throw new Error("useAvailability must be used within AvailabilityProvider");
   }
-  return availabilityPromise;
+  return context;
 }

@@ -32,6 +32,10 @@
               {
                 "group": ["@/server/db", "@/server/db/**", "**/server/db/**"],
                 "message": "Only the data layer may import the db client."
+              },
+              {
+                "group": ["@/server/auth/session", "**/server/auth/session"],
+                "message": "Only the data layer may import the auth session helpers."
               }
             ]
           }

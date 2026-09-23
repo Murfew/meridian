@@ -14,10 +14,12 @@ import { db } from "@/server/db";
 import { availabilities } from "@/server/db/schema";
 
 export async function saveAvailability(days: StoredDay[]): Promise<void> {
-  const user = await requireUser();
+  const sessionUser = await requireUser();
 
   await db.transaction(async (tx) => {
-    await tx.delete(availabilities).where(eq(availabilities.ownerId, user.id));
+    await tx
+      .delete(availabilities)
+      .where(eq(availabilities.ownerId, sessionUser.id));
 
     const daysToInsert = days.filter((day) => day.enabled);
 
@@ -25,7 +27,7 @@ export async function saveAvailability(days: StoredDay[]): Promise<void> {
       await tx.insert(availabilities).values(
         daysToInsert.map((day) => ({
           ...day,
-          ownerId: user.id,
+          ownerId: sessionUser.id,
         })),
       );
     }
@@ -36,10 +38,10 @@ const DEFAULT_START_TIME: Time = { hours: 9, minutes: 0 };
 const DEFAULT_END_TIME: Time = { hours: 17, minutes: 0 };
 
 export async function getAvailability(): Promise<Day[]> {
-  const user = await requireUser();
+  const sessionUser = await requireUser();
 
   const rows = await db.query.availabilities.findMany({
-    where: { ownerId: user.id },
+    where: { ownerId: sessionUser.id },
     columns: { dayOfWeek: true, startMinute: true, endMinute: true },
   });
 

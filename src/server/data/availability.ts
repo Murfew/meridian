@@ -26,8 +26,10 @@ export async function saveAvailability(days: StoredDay[]): Promise<void> {
     if (daysToInsert.length > 0) {
       await tx.insert(availabilities).values(
         daysToInsert.map((day) => ({
-          ...day,
           ownerId: sessionUser.id,
+          dayOfWeek: day.dayOfWeek,
+          startMinute: day.startMinute,
+          endMinute: day.endMinute,
         })),
       );
     }

@@ -39,12 +39,11 @@ export function fromMinutes(minutes: number): Time {
 }
 
 export function parseTime(time: string): Time {
-  const hours = Number(time.slice(0, 2));
-  const minutes = Number(time.slice(3));
+  const [hours, minutes] = time.split(":").map(Number);
 
   return { hours, minutes };
 }
 
-export function formatTime(time: Time): string {
+export function formatTime(time: Time) {
   return `${time.hours.toString().padStart(2, "0")}:${time.minutes.toString().padStart(2, "0")}`;
 }
